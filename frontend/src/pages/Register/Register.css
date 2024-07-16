@@ -1,0 +1,82 @@
+.register{
+    display: grid;
+    justify-content: center;
+    background: linear-gradient(90deg,#eca6a6 10%, #47728b 50%, #3ae7f3);;
+
+}
+.register-contents{
+    margin-top: 100px;
+    border: 1px solid black;
+    height: 550px;
+    width: 400px;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.897);
+
+}
+.register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.form-div{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: 1fr;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
+.register-contents h1 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    font-weight: 400;
+}
+.register-form input[type=text] , 
+.register-form input[type=password],
+.register-form input[type=email]{
+    padding: .5em;
+    width: 300px;
+    
+}
+.error-register{
+    margin-top: 1em;
+    text-align: center;
+}
+.register-btn{
+    margin-top: .5em;
+    padding: 1em;
+    width: 150px;
+    border: 0;
+    box-shadow: none;
+    border-radius: .5rem;
+    background-color: #04D3FF;
+    font-weight: bold;
+}
+.register-btn:hover{
+    cursor: pointer;
+}
+.register-login{
+    margin-top: 1em;
+    text-align: center;
+}
+.hyper-link{
+    padding: 6px;
+    text-decoration: none;
+    color: #000000;
+    transition: .3s;
+}
+.hyper-link:hover{
+    background-color: #04D3FF;
+    color: black;
+    border-radius: 6px;
+
+}
+@media(max-width: 400px) {
+    .login-contents{
+        width: 300px;
+
+    }
+    
+}

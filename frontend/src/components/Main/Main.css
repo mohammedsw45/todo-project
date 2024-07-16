@@ -1,0 +1,10 @@
+.main-container{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+
+.main-container{
+    min-height: max(100vh,90px);
+    margin-top: 133px;
+}

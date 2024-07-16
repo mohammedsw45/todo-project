@@ -1,0 +1,90 @@
+.title{
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.container--home{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(199, 199, 199);
+}
+.home-container{
+    /* background-color: rgba(33, 34, 42, 0.95);; */
+}
+.task-controller{
+    display: grid;
+    grid-template-columns: 1fr 1fr 30px;
+    width: 700px;
+    column-gap: 2em;
+
+    background-color: rgb(216, 216, 216);
+    padding: 3em;
+    border-bottom: 1px solid black;
+}
+.task-controller h2{
+    margin-bottom: 12px;
+}
+.container--home input[type=text]{
+    /* background-color: aqua; */
+    padding: 1em;
+
+}
+.task-controller button{
+    background-color: rgb(3, 139, 78); 
+    border-radius: 30px; 
+    color: white;
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+.buttons{
+    padding-top: .5em;
+    padding-bottom: .5em;
+    display: flex;
+    background-color:  rgb(216, 216, 216);;
+}
+.button{
+    width: 7em;
+    height: 3em;
+    background-color: rgb(70, 59, 59);    
+    color: #fff;
+    transition: .3s;
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+}
+.button:hover{
+    background-color: gray;   
+    cursor: pointer ;
+    color: #000;
+}
+.tasks{
+    height: 300px;
+    margin-top: 10px;
+    /* background-color: rgb(216, 216, 216); */
+    overflow-y: scroll;
+}
+.task{
+    position: relative;
+    padding: 4px;
+    margin-bottom: 1em;
+    border-bottom: 1px solid black;
+
+
+    
+}
+.task-title{
+    color: #1b5e05;
+    margin-bottom: .2em;
+}
+.task-status{
+    position: absolute;
+    padding: 0 8px;
+    background-color: #1b5e05;
+    color: white;
+    font-size: .8rem;
+    font-weight: bold;
+    right: 0;
+    top: 0px;
+}
