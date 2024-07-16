@@ -50,5 +50,18 @@ class TaskSerializer(serializers.ModelSerializer):
         serializer = StepSerializer(steps, many=True)
         return serializer.data
     
+    def to_representation(self, instance):
+        # Get the request object from context
+        request = self.context.get('request')
+        
+        # Check if request user is admin
+        is_admin = request.user.is_staff if request else False
+        
+        # Conditionally exclude viewers field if not admin
+        if not is_admin:
+            self.fields.pop('viewers', None)
+        
+        return super().to_representation(instance)
+    
 
     

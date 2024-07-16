@@ -7,6 +7,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.contrib.auth.models import User
+from django.db import models
+
 class Task(models.Model):
     STATUS_CHOICES = (
         ('To Do', 'To Do'),
@@ -16,15 +19,16 @@ class Task(models.Model):
         ('Cancelled', 'Cancelled'),
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    implementation_duration_hours = models.FloatField(default=1.0) 
+    implementation_duration_hours = models.FloatField(default=1.0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='To Do')
     begin_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
+    owner = models.ForeignKey(User, related_name='task_owner', on_delete=models.CASCADE)
+    viewers = models.ManyToManyField(User, related_name='task_viewers', blank=True)
 
     def save(self, *args, **kwargs):
         if self.status == 'Open' and not self.begin_time:
@@ -34,7 +38,7 @@ class Task(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return self.title +" by "+ self.owner.username
 
     
     

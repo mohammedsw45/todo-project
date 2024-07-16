@@ -6,9 +6,14 @@ from django.db.models.signals import post_save
 
 
 class Profile(models.Model):
+    USER_TYPES = (
+        ('admin', 'Admin'),
+        ('employee', 'employee'),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_user')
     rest_password_token = models.CharField(max_length=50, default="", blank=True)
     rest_password_expire = models.DateTimeField(null=True, blank=True)
+    user_type = models.CharField(max_length=10, choices=USER_TYPES, default='employee')
 
 @receiver(post_save, sender = User)
 def save_profile(sender, instance, created, **kwargs):
