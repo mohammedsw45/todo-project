@@ -1,0 +1,84 @@
+[
+    {
+        "id": 1,
+        "steps": [
+            {
+                "id": 1,
+                "task": 1,
+                "title": "Get Tasks",
+                "body": "Get All Tasks",
+                "start_time": null,
+                "end_time": null,
+                "status": "To Do"
+            },
+            {
+                "id": 2,
+                "task": 1,
+                "title": "Create Task",
+                "body": "Create Task with mnjojok",
+                "start_time": null,
+                "end_time": null,
+                "status": "To Do"
+            },
+            {
+                "id": 3,
+                "task": 1,
+                "title": "Get Tasks updated",
+                "body": "Get All Tasks",
+                "start_time": null,
+                "end_time": null,
+                "status": "To Do"
+            },
+            {
+                "id": 4,
+                "task": 1,
+                "title": "Create Task updated",
+                "body": "Create Task with mnjojok",
+                "start_time": null,
+                "end_time": null,
+                "status": "To Do"
+            }
+        ],
+        "title": "Todo1 App by admin updated",
+        "body": "Create Todo app with all CRUD Operations",
+        "created_at": "2024-07-15T11:32:02.871583Z",
+        "updated_at": "2024-07-15T11:43:31.664403Z",
+        "implementation_duration_hours": 10.0,
+        "status": "To Do",
+        "begin_time": null,
+        "end_time": null,
+        "user": 1
+    },
+    {
+        "id": 2,
+        "steps": [
+            {
+                "id": 5,
+                "task": 2,
+                "title": "Get Tasks",
+                "body": "Get All Tasks",
+                "start_time": null,
+                "end_time": null,
+                "status": "To Do"
+            },
+            {
+                "id": 6,
+                "task": 2,
+                "title": "Create Task",
+                "body": "Create Task with mnjojok",
+                "start_time": null,
+                "end_time": null,
+                "status": "To Do"
+            }
+        ],
+        "title": "Todo2 App by admin",
+        "body": "Create Todo app with all CRUD Operations",
+        "created_at": "2024-07-15T11:48:20.396610Z",
+        "updated_at": "2024-07-15T11:48:20.396610Z",
+        "implementation_duration_hours": 10.0,
+        "status": "To Do",
+        "begin_time": null,
+        "end_time": null,
+        "user": 1
+    }
+]
