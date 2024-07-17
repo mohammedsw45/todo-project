@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     USER_TYPES = (
-        ('admin', 'Admin'),
+        ('admin', 'admin'),
         ('employee', 'employee'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_user')
@@ -15,9 +15,10 @@ class Profile(models.Model):
     rest_password_expire = models.DateTimeField(null=True, blank=True)
     user_type = models.CharField(max_length=10, choices=USER_TYPES, default='employee')
 
-@receiver(post_save, sender = User)
+@receiver(post_save, sender=User)
 def save_profile(sender, instance, created, **kwargs):
-    user = instance
     if created:
-        profile = Profile(user = user)
+        profile = Profile(user=instance)
+        if instance.is_superuser:
+            profile.user_type = 'admin'
         profile.save()

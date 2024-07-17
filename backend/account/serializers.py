@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import Profile
 
 class SingUpSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +18,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Profile
+        fields = ['user', 'rest_password_token', 'rest_password_expire', 'user_type']
