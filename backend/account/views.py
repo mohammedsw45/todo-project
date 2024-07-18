@@ -18,6 +18,7 @@ from django.utils import timezone
 #Dashboard
 from .models import Profile
 from .serializers import ProfileSerializer
+from .serializers import EditUserSerializer, EditProfileSerializer
 
 @api_view(['POST'])
 def register(request):
@@ -138,7 +139,6 @@ def reset_password(request, token):
     return Response({"details": "Password rest done"})
 
 #Dashboard
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsAdminUser])
 def get_all_profiles(request):
@@ -146,6 +146,12 @@ def get_all_profiles(request):
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def get_profile(request, pk):
+    profile = get_object_or_404(Profile, id=pk)
+    serializer = ProfileSerializer(profile, many=False)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated, IsAdminUser])
@@ -192,24 +198,23 @@ def update_profile(request, pk):
         return Response({"error": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
 
     data = request.data
-    profile_serializer = ProfileSerializer(profile, data=data, partial=True)
-    # if profile_serializer.is_valid():
-    #     return Response({"profile": profile_serializer.data}, status=status.HTTP_200_OK)
+    profile_serializer = EditProfileSerializer(profile, data=data, partial=True)
+
     if profile_serializer.is_valid():
         profile_serializer.save()
-
-        if "user_type" in data:
-            user = profile.user
-            profile.user_type = data["user_type"]
-            if data["user_type"] == "admin":
-                user.is_superuser = True
-                user.is_staff = True
-            elif data["user_type"] == "employee":
-                user.is_superuser = False
-                user.is_staff = False
-            profile.save()
-            user.save()
-
         return Response({"result": "The user has been updated successfully"}, status=status.HTTP_200_OK)
     else:
         return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def delete_profile(request, pk):
+    profile = get_object_or_404(Profile, id=pk)
+    
+    user = get_object_or_404(User, id = profile.user.id)
+    if  request.user != user.id:
+        user.delete()
+        return Response({"task": "This user was deleted successfully!"}, status=status.HTTP_200_OK)
+    
+    return Response({"Error": "Sorry you can not delete this user"}, status=status.HTTP_403_FORBIDDEN)

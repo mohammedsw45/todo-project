@@ -19,8 +19,9 @@ urlpatterns = [
 
 
     #Dashnoard
-    path('profiles/', views.get_all_profiles, name='get_all_profiles'),
+    path('profiles/', views.get_all_profiles, name='get-all-profiles'),
+    path('profiles/<str:pk>', views.get_profile, name='get-profile'),
     path('profiles/add', views.add_profile, name='add-profile'),
     path('profiles/<str:pk>/update', views.update_profile, name='add-profile'),
-
+    path('profiles/<str:pk>/delete', views.delete_profile, name='delete-profile'),
 ]
