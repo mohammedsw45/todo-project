@@ -1,0 +1,49 @@
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: aqua;
+}
+
+.form {
+    width: 350px;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.916);
+    color: black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.form h1 {
+    color: gray;
+}
+
+.form input {
+    width: 80%;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    text-align: center;
+    font-size: 20px;
+    outline: none;
+}
+
+.form button {
+    width: 50%;
+    padding: 10px;
+    background: gray;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    border: 1px solid white;
+    font-size: 16px;
+}
+.form h4{
+    color:red
+}

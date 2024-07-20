@@ -8,6 +8,8 @@ import NotFound from '../../pages/NotFound/NotFound';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import { AuthContext } from '../../AuthContext/AuthContext';
+import Forget from '../../pages/forget-password/Forget';
+import Reset from './../../pages/reset-password/Reset';
 // import OurServices from './OurServices.js'
 // import AboutUs from './AboutUs.js';
 // import ContactUs from './ContactUs.js';
@@ -30,6 +32,8 @@ function Main(props){
         <Routes>
           <Route path="/register" element={<Register />}  />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/reset" element={<Reset />} />
           <Route path="*" element={<NotFound />} />
 
         </Routes>
