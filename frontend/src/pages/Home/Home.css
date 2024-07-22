@@ -14,19 +14,25 @@
 .task-controller{
     display: grid;
     grid-template-columns: 1fr 1fr 30px;
-    width: 700px;
     column-gap: 2em;
+    row-gap: 2em;
 
     background-color: rgb(216, 216, 216);
     padding: 3em;
+    padding-bottom: 1em;
     border-bottom: 1px solid black;
 }
 .task-controller h2{
     margin-bottom: 12px;
 }
+#time{
+    margin-bottom: 12px;
+
+}
 .container--home input[type=text]{
     /* background-color: aqua; */
     padding: 1em;
+    width: 100%;
 
 }
 .task-controller button{
@@ -35,10 +41,12 @@
     color: white;
     font-weight: bolder;
     font-size: 1.5rem;
+    width: 33px;
+    margin-top: 35px;
 }
 .buttons{
-    padding-top: .5em;
-    padding-bottom: .5em;
+    /* padding-top: .5em;
+    padding-bottom: .5em; */
     display: flex;
     background-color:  rgb(216, 216, 216);;
 }
@@ -85,6 +93,33 @@
     color: white;
     font-size: .8rem;
     font-weight: bold;
-    right: 0;
+    right: 0px;
     top: 0px;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 1px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #C7C7C7; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #C7C7C7; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C7C7C7; 
+  }
+@media(max-width: 700px){
+    .task-controller{
+        grid-template-columns: 1fr;
+    }
+    .task-controller button{
+        margin-top: 0;
+    }
 }

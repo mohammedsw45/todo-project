@@ -34,6 +34,9 @@ function Main(props){
         </Routes>
        : 
         <Routes>
+          <Route path="/login" element={<Login />} />
+          {/* <Route path="/register" element={<Register />}  />
+          <Route path="/login" element={<Login />} /> */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forget" element={<Forget />} />

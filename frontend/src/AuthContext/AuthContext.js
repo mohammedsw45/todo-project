@@ -84,7 +84,7 @@ const AuthProvider = ({ children }) => {
 
       console.log("Register");
       console.log(response.data);
-
+      
       if (response && response.status === 201) 
         {
           const login_response =  await login  (email, password)
