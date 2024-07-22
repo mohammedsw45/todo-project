@@ -14,7 +14,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(firstName.length < 5 || lastName.length < 5 || email.length == 0 || password.length< 5){
+    if(firstName.length < 5 || lastName.length < 5 || email.length === 0 || password.length< 5){
       setError('One or more fields are not in a correct form!');
       return;
     }
