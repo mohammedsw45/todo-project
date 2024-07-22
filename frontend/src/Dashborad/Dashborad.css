@@ -1,0 +1,126 @@
+.Dashboard{
+    background-color: #cee218;
+    display: flex;
+    box-sizing: border-box;
+    color: #fff;
+}
+.Dashboard .SideBar{
+    background-color: #363333;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+.Dashboard .SideBar .title{
+    width: 100%;
+    height: 15%;
+    text-align: center;    
+}
+
+.Dashboard .SideBar .links{
+    width: 100%;
+    height: 85%; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;   
+}
+
+
+.Dashboard .SideBar .links a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 3rem;
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    padding: 20px 50px;
+}
+
+.Dashboard .Container{
+    width: 100%;
+}
+.Dashboard .Container .Header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    border: 2px solid #efef00;
+}
+
+.Dashboard .Container .Header .Search{
+    width: 80%;
+}
+
+.Dashboard .Container .Header .Search input{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 10px auto;
+    font-size: 1.2rem;
+}
+
+.Dashboard .Container .Header .Search input::placeholder{
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px auto;
+}
+
+.Dashboard .Container .Header .create-Task{
+    width: 20%;
+    height: 100%;
+    background-color: #0d76cc;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    text-align: center;
+    padding-top: 12px;
+}
+
+.Dashboard .Container .Header .create-Task:hover{
+    background-color: #04D3FF;
+}
+
+.Dashboard .Container .Header .create-Task .hyper-link:hover{
+    background-color:initial;
+}
+
+
+
+.Dashboard .Container .main .data-view {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+.Dashboard .Container .main .data-view th, .Dashboard .Container .main .data-view td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.Dashboard .Container .main .data-view th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+}
+.Dashboard .Container .main .data-view tr:nth-child(odd) {
+    background-color: #706868;
+}
+.Dashboard .Container .main .data-view tr:nth-child(even) {
+    background-color: #221d1d;
+}
+.Dashboard .Container .main .data-view tr:hover {
+    background-color: #e42424;
+}
+.Dashboard .Container .main .data-view td {
+    text-align: center;
+}
+.Dashboard .Container .main .data-view button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
