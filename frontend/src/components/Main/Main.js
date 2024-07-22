@@ -18,6 +18,21 @@ function Main(props) {
   return (
     <div className="main-container">
       {user ? (
+=======
+import Forget from '../../pages/forget-password/Forget';
+import Reset from './../../pages/reset-password/Reset';
+// import OurServices from './OurServices.js'
+// import AboutUs from './AboutUs.js';
+// import ContactUs from './ContactUs.js';
+// import JoinUs from './JoinUs.js';
+// import Academy from './Academy.js'
+function Main(props){
+    const { user } =  useContext(AuthContext);
+    return(
+        <div className="main-container">
+        
+        
+        {user ?
         <Routes>
           <Route path="/dashboard/" element={<Dashborad />}>
             <Route index element={<Tasks />} /> 
@@ -33,6 +48,8 @@ function Main(props) {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/reset" element={<Reset />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
