@@ -103,8 +103,8 @@ def forgot_password(request):
     token = get_random_string(40)
     expire_date = timezone.now() + timedelta(minutes=30)
 
-    user.profile_user.rest_password_token = token
-    user.profile_user.rest_password_expire = expire_date
+    user.profile_user.reset_password_token = token
+    user.profile_user.reset_password_expire = expire_date
     user.profile_user.save()
 
     link = f"http://192.168.1.98:8000/account/user/reset_password/{token}"
@@ -125,15 +125,15 @@ def forgot_password(request):
 @api_view(['POST'])
 def reset_password(request, token):
     data = request.data
-    user = get_object_or_404(User, profile_user__rest_password_token = token)
+    user = get_object_or_404(User, profile_user__reset_password_token = token)
     if user.profile_user.rest_password_expire < timezone.now():
         return Response({"error": "Token is expired"}, status=status.HTTP_400_BAD_REQUEST)
     
     if data['password'] != data['confirmPassword']:
         return Response({"error": "Passwords are not the same"}, status=status.HTTP_400_BAD_REQUEST)
     user.password = make_password(data['password'])
-    user.profile_user.rest_password_token = ""
-    user.profile_user.rest_password_expire = None
+    user.profile_user.reset_password_token = ""
+    user.profile_user.reset_password_expire = None
     user.profile_user.save()
     user.save()
     return Response({"details": "Password rest done"})
