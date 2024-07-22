@@ -11,21 +11,9 @@ import Tasks from '../../Dashborad/Components/Tasks/Tasks';
 import Users from '../../Dashborad/Components/Users/Users';
 import NewTask from '../../Dashborad/Components/NewTask/NewTask';
 import NewUser from '../../Dashborad/Components/NewUser/NewUser';
-
-function Main(props) {
-  const { user } = useContext(AuthContext);
-
-  return (
-    <div className="main-container">
-      {user ? (
-=======
 import Forget from '../../pages/forget-password/Forget';
-import Reset from './../../pages/reset-password/Reset';
-// import OurServices from './OurServices.js'
-// import AboutUs from './AboutUs.js';
-// import ContactUs from './ContactUs.js';
-// import JoinUs from './JoinUs.js';
-// import Academy from './Academy.js'
+import Reset from './../../pages/reset-password/Reset'; 
+
 function Main(props){
     const { user } =  useContext(AuthContext);
     return(
@@ -44,7 +32,7 @@ function Main(props){
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Home />} />
         </Routes>
-      ) : (
+       : 
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
@@ -52,7 +40,7 @@ function Main(props){
           <Route path="/reset" element={<Reset />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      )}
+      }
     </div>
   );
 }
