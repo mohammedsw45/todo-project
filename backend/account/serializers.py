@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password
 class SingUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'password')
+        fields = ('id','first_name', 'last_name', 'email', 'password')
 
         extra_kwargs = {
             'first_name': {'required': True, 'allow_blank': False},
@@ -18,7 +18,7 @@ class SingUpSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username')
+        fields = ('id','first_name', 'last_name', 'email', 'username')
 
 
 class ProfileSerializer(serializers.ModelSerializer):

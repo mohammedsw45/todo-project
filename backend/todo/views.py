@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework import status
-from .serializers import TaskSerializer,StepSerializer
+from .serializers import TaskSerializer,CreateTaskSerializer,StepSerializer
 from .models import Task,Step
 from rest_framework.permissions import IsAuthenticated
 
@@ -44,14 +44,14 @@ def create_task(request):
 
         # Set the task owner to the current authenticated user
         task_data['owner'] = request.user.id
-
+        
         # Add all admins as viewers
         admins = User.objects.filter(is_staff=True)
         task_data['viewers'] = [admin.id for admin in admins]
         if task_data['owner'] not in task_data['viewers']:
             task_data['viewers'].append(task_data['owner'])
         # Serialize task data
-        task_serializer = TaskSerializer(data=task_data)
+        task_serializer = CreateTaskSerializer(data=task_data)
 
         if task_serializer.is_valid():
             # Save the Task instance
