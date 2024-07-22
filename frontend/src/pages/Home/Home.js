@@ -3,6 +3,7 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import './Home.css'
 // import myData from '../../data.json';
 export default function Home(){
+    const { user } =  useContext(AuthContext);
     const [error, setError] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -55,28 +56,37 @@ export default function Home(){
     return(
         <div className="container--home">
             <div className="home-container">
-            <h1 className="title">My Todos</h1>
+            <h1 className="title">My Todos {user.username}</h1>
             <div className="task-controller">
-                <h2>Title</h2>
-                <h2>Description</h2>
+                
+                <div>
+                    <h2>Title</h2>
+                    <input 
+                        type="text" 
+                        id="title"
+                        name="title"
+                        value={title}
+                        onChange={onTitleChange}/>
+                </div>
+                <div>
+                    <h2>Description</h2>  
+                    <input
+                        type="text" 
+                        id="description"
+                        name="description"
+                        value={description}
+                        onChange={onDescriptionChange}/>
+                </div>
+                <div>
                 <h2></h2>
-
-                <input 
-                    type="text" 
-                    id="title"
-                    name="title"
-                    value={title}
-                    onChange={onTitleChange}/>
-                <input
-                    type="text" 
-                    id="description"
-                    name="description"
-                    value={description}
-                    onChange={onDescriptionChange}/>
                 <button onClick={handleAddTask}>+</button>
 
+
+                </div>
+              
+
                 <div>
-                <h4>Time (Hours)</h4>
+                <h4 id='time'>Time (Hours)</h4>
                 <input
                     type="number" 
                     id="time"
