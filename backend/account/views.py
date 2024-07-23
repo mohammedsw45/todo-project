@@ -126,7 +126,7 @@ def forgot_password(request):
 def reset_password(request, token):
     data = request.data
     user = get_object_or_404(User, profile_user__reset_password_token = token)
-    if user.profile_user.rest_password_expire < timezone.now():
+    if user.profile_user.reset_password_expire < timezone.now():
         return Response({"error": "Token is expired"}, status=status.HTTP_400_BAD_REQUEST)
     
     if data['password'] != data['confirmPassword']:
