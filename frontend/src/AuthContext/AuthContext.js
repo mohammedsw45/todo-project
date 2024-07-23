@@ -30,10 +30,33 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const startTask = async (id) => {
+    try{
+      const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+      const response = await axios.patch(`${destination}/todo/tasks/${id}/update/`,
+        {
+          "status": "Open",
+
+
+        }, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
+        }
+      });
+       if (response && response.status === 200) 
+        {
+          return { success: true };
+        }
+        } catch (error) {
+          console.error('Task Start failed', error);
+          return { success: false, message: error.response.data.detail };
+        }
+      };
+
   const deleteTask = async (id) => {
     try{
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.delete(`${destination}/tasks/${id}/delete/`, {
+      const response = await axios.delete(`${destination}/todo/tasks/${id}/delete/`, {
         headers: {
           'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
         }
@@ -137,7 +160,7 @@ const AuthProvider = ({ children }) => {
   // useEffect for token refresh...
 
   return (
-    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask }}>
+    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask }}>
       {children}
     </AuthContext.Provider>
   );

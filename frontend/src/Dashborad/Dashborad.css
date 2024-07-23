@@ -27,20 +27,21 @@
     justify-content: space-evenly;   
 
 }
-.Dashboard .SideBar .links div{
-    padding-top: 10px;
-    padding-bottom: 5px;
-}
+
 .Dashboard .SideBar .links div:hover, .Dashboard .SideBar .links div:hover a{
     background-color: #ddd;
     color: black;
 }
 
 .Dashboard .SideBar .links a{
+    display: inline-block;
     text-decoration: none;
     color: #fff;
     font-size: 1rem;
     padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+
     /* border: 2px solid #ff0000; */
     /* border-radius: 10px; */
 }
