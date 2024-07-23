@@ -45,9 +45,7 @@ const Tasks = () => {
   return (
     <>
         <div className='Header'>
-          <div className='Search'>
-            <input type="search" id="gsearch" name="gsearch" placeholder='Search' onInput={handleChange} />
-          </div>
+          <input type="search" id="gsearch" name="gsearch" placeholder='Search...' onInput={handleChange} />
           <div className='create-Task'>
             <Link className='hyper-link' to="/dashboard/create-new-task">Create new Task</Link>
           </div>

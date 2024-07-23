@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
-
+const destination = "http://192.168.1.:8000"
 const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() => {
     const tokens = localStorage.getItem('authTokens');
@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://192.168.1.98:8000/account/token/', { username, password });
+      const response = await axios.post(`${destination}/account/token/`, { username, password });
       console.log("Login");
       console.log(response.data);
       setAuthTokens(response.data);
@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
   const getAllTasks = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://192.168.1.98:8000/todo/tasks', {
+      const response = await axios.get(`${destination}/todo/tasks`, {
         headers: {
           'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
         }
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       console.log(accessToken);
       const response = axios.post(
-        'http://192.168.1.98:8000/todo/tasks/create/',
+        `${destination}/todo/tasks/create/`,
         { 
           "title": title,
           "body": description,
@@ -73,8 +73,9 @@ const AuthProvider = ({ children }) => {
   };
 
   const register = async (firstName, lastName, email, password) => {
+    console.log(`${destination}/account/register/`)
     try {
-        const response = await axios.post('http://192.168.1.98:8000/account/register/', {
+        const response = await axios.post(`${destination}/account/register/`, {
         first_name: firstName,
         last_name: lastName,
         email: email,

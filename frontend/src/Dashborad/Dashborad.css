@@ -1,78 +1,85 @@
 .Dashboard{
-    background-color: #cee218;
+    /* background-color: #cee218; */
     display: flex;
     box-sizing: border-box;
     color: #fff;
 }
 .Dashboard .SideBar{
     background-color: #363333;
-    width: 20%;
+    /* width: 20%; */
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     
 }
-.Dashboard .SideBar .title{
-    width: 100%;
-    height: 15%;
-    text-align: center;    
+.Dashboard .SideBar .title h1{
+    font-size: 18px;
+    text-wrap: nowrap;
+    padding: 0 10px;
 }
 
 .Dashboard .SideBar .links{
-    width: 100%;
-    height: 85%; 
+    /* width: 100%; */
+    /* height: 85%;  */
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;   
-}
 
+}
+.Dashboard .SideBar .links div{
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+.Dashboard .SideBar .links div:hover, .Dashboard .SideBar .links div:hover a{
+    background-color: #ddd;
+    color: black;
+}
 
 .Dashboard .SideBar .links a{
     text-decoration: none;
     color: #fff;
-    font-size: 3rem;
-    border: 2px solid #ff0000;
-    border-radius: 10px;
-    padding: 20px 50px;
+    font-size: 1rem;
+    padding-top: 10px;
+    /* border: 2px solid #ff0000; */
+    /* border-radius: 10px; */
 }
 
 .Dashboard .Container{
+    padding-left: 2px;
     width: 100%;
+    background-color: #e7e7e7;
 }
 .Dashboard .Container .Header{
     width: 100%;
     height: 50px;
+    margin-bottom: 3px;
     display: flex;
-    border: 2px solid #efef00;
+    justify-content: space-between;
+    /* border: 2px solid #efef00; */
 }
 
-.Dashboard .Container .Header .Search{
-    width: 80%;
-}
-
-.Dashboard .Container .Header .Search input{
-    width: 100%;
-    height: 100%;
+#gsearch{
+    width: 300px;
     border-radius: 10px;
     padding: 10px auto;
-    font-size: 1.2rem;
-}
-
-.Dashboard .Container .Header .Search input::placeholder{
-    font-size: 2rem;
-    text-align: center;
-    padding: 10px auto;
+    font-size: 1rem;
+    text-indent: 2px;
 }
 
 .Dashboard .Container .Header .create-Task{
-    width: 20%;
-    height: 100%;
-    background-color: #0d76cc;
+    /* background-color: #0d76cc; */
     border-radius: 10px;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 800;
     text-align: center;
-    padding-top: 12px;
+    padding-top: 15px;
+    background-color: #2b990f;
+    transition: .3s;
+}
+.Dashboard .Container .Header .create-Task a{
+    color: white;
+
 }
 
 .Dashboard .Container .Header .create-Task:hover{
@@ -92,7 +99,6 @@
     background-color: #f2f2f2;
 }
 .Dashboard .Container .main .data-view th, .Dashboard .Container .main .data-view td {
-    border: 1px solid #ddd;
     padding: 8px;
 }
 .Dashboard .Container .main .data-view th {
@@ -101,10 +107,12 @@
     text-align: center;
 }
 .Dashboard .Container .main .data-view tr:nth-child(odd) {
-    background-color: #706868;
+    /* background-color: #706868; */
+    color: black;
 }
 .Dashboard .Container .main .data-view tr:nth-child(even) {
-    background-color: #221d1d;
+    /* background-color: #706868; */
+    color: black;
 }
 .Dashboard .Container .main .data-view tr:hover {
     background-color: #e42424;
