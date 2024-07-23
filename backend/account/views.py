@@ -106,8 +106,8 @@ def forgot_password(request):
     user.profile_user.reset_password_token = token
     user.profile_user.reset_password_expire = expire_date
     user.profile_user.save()
-
-    link = f"http://192.168.1.98:8000/account/user/reset_password/{token}"
+    host = get_current_host()
+    link ="{host}account/user/reset_password/{token}".format(host=host, token=token)
     body = f"Your password reset link is : {link}"
 
     try:
