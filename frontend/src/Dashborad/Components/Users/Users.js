@@ -48,10 +48,8 @@ const Users = () => {
   return (
     <>
       <div className='Header'>
-        <input type="search" id="gsearch" name="gsearch" placeholder='Search' onInput={handleChange} />
-        <div className='create-Task'>
-          <Link className='hyper-link' to="/dashboard/create-new-user">Create new User</Link>
-        </div>
+        {/* <input type="search" id="gsearch" name="gsearch" placeholder='Search' onInput={handleChange} /> */}
+          <Link className='hyper-link create-Task' to="/dashboard/create-new-user">Create new User</Link>
       </div>
 
       <div className='main'>
