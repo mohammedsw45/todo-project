@@ -263,7 +263,10 @@ def admin_create_task(request):
         
         # Add all admins as viewers
         admins = User.objects.filter(is_staff=True)
-        task_data['viewers'] = [admin.id for admin in admins]
+        for admin in admins:
+            if admin.id not in task_data['viewers']:
+                task_data['viewers'].append(admin.id)
+                
         if task_data['owner'] not in task_data['viewers']:
             task_data['viewers'].append(task_data['owner'])
         # Serialize task data
