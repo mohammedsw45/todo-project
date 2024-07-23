@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState } from "react";
 import { AuthContext } from '../../AuthContext/AuthContext';
 import './Home.css'
+
+import deleteIcon from '../../icons/delete.png'
 // import myData from '../../data.json';
 export default function Home(){
     const { user } =  useContext(AuthContext);
@@ -22,8 +24,35 @@ export default function Home(){
     const { logout } = useContext(AuthContext);
     const { createTask } = useContext(AuthContext);
     const { getAllTasks } = useContext(AuthContext);
+    const { deleteTask } = useContext(AuthContext);
     const [tasks, setTasks] = useState([]);
 
+    const [filteredtasks, setFilteredTasks] = useState([]);
+    useEffect(() => {
+        setFilteredTasks(tasks)
+        }, [tasks])
+
+    const handleChange = (e) =>{
+        const filter = tasks.filter(
+        task => task.title.includes(e.target.value)
+        )
+        setFilteredTasks(filter);
+    }
+    function handleDeleteTask(id){
+        const _deleteTask = async () => {
+            try {
+              const res = await deleteTask(id);
+              // Clear the input fields or update the UI as needed
+
+              // Optionally, you can reload the page to see the updated tasks
+              // window.location.reload();
+            } catch (error) {
+              console.error('Error deleting task:', error.message);
+              // Handle the error, e.g., display an error message to the user
+            }
+          };
+          _deleteTask();
+    }
     function handleAddTask() {
         if (title.length > 0 && description.length > 0 && time > 0) {
           const addTask = async () => {
@@ -109,16 +138,23 @@ export default function Home(){
                     <div className="button">
                         <span>Completed</span>
                     </div>
+                    <input type="search" id="gsearch" name="gsearch" placeholder='Search...' onInput={handleChange} />
                 </div>
                 <div className="tasks">
-                    {tasks != null ? 
-                    tasks.map(task => {
+                    {filteredtasks != null ? 
+                    filteredtasks.map(task => {
+                        console.log(task.steps)
                         return (
                         <div className="task">
                             <h2 className="task-title">{task.title === null ? "**" : task.title}</h2>
                             <span>{task.body === null ? "**" : task.body}</span>
                             <div className="task-status">{task.status === null ? "**" : task.status}</div>
-                            
+                            <ul className="unordered-list">
+                            {task.steps.map(step => {
+                                return (<li>{step.title}</li>)
+                            })}
+                            </ul>
+                            <img src={deleteIcon} className="delete-icon" onClick={handleDeleteTask(task.id)}/>                            
                         </div>
                     )})  : 
                     <h2>You have no tasks...</h2>

@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
-const destination = "http://192.168.1.:8000"
+const destination = "http://192.168.1.163:8000"
 const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() => {
     const tokens = localStorage.getItem('authTokens');
@@ -30,6 +30,27 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const deleteTask = async (id) => {
+    try{
+      const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+      const response = await axios.delete(`${destination}/tasks/${id}/delete/`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
+        }
+      });
+       if (response && response.status === 200) 
+        {
+          return { success: true };
+          window.location.reload();
+
+        }
+        } catch (error) {
+          console.error('Deletion failed', error);
+          return { success: false, message: error.response.data.detail };
+        }
+      };
+    
+  
   const getAllTasks = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
@@ -116,7 +137,7 @@ const AuthProvider = ({ children }) => {
   // useEffect for token refresh...
 
   return (
-    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask }}>
+    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask }}>
       {children}
     </AuthContext.Provider>
   );

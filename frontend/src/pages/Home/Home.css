@@ -77,10 +77,7 @@
     position: relative;
     padding: 4px;
     margin-bottom: 1em;
-    border-bottom: 1px solid black;
-
-
-    
+    border-bottom: 1px solid black; 
 }
 .task-title{
     color: #1b5e05;
@@ -95,6 +92,25 @@
     font-weight: bold;
     right: 0px;
     top: 0px;
+}
+.unordered-list{
+    list-style-type: circle;
+    list-style-position: inside;
+
+}
+.delete-icon{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 55px;
+    top: 0px;
+
+    cursor: pointer;
+    transition: .3s;
+
+}
+.delete-icon:hover{
+    background-color: #63725f;
 }
 /* width */
 ::-webkit-scrollbar {

@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState([]);
-  
+  const [tasks, setTasks] = useState([]); 
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -18,7 +17,7 @@ const Tasks = () => {
   const getAllTasks = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://192.168.1.98:8000/todo/tasks', {
+      const response = await axios.get('http://192.168.1.163:8000/todo/admin/tasks', {
         headers: {
           'Authorization': `Bearer ${accessToken}` // Corrected template literal usage
         }
