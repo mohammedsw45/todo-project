@@ -8,7 +8,6 @@ from django.core.exceptions import ValidationError
 class Task(models.Model):
     STATUS_CHOICES = (
         ('To Do', 'To Do'),
-        ('Open', 'Open'),
         ('In Progress', 'In Progress'),
         ('Done', 'Done'),
         ('Cancelled', 'Cancelled'),
@@ -26,7 +25,7 @@ class Task(models.Model):
     viewers = models.ManyToManyField(User, related_name='task_viewers', blank=True)
 
     def save(self, *args, **kwargs):
-        if self.status == 'Open' and not self.begin_time:
+        if self.status == 'In Progress' and not self.begin_time:
             self.begin_time = self.updated_at
         elif self.status in ['Done', 'Cancelled'] and not self.end_time:
             self.end_time = self.updated_at
