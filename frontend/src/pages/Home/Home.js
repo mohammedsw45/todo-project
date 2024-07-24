@@ -159,7 +159,7 @@ export default function Home(){
                     <div className="button">
                         <span>Done</span>
                     </div>
-                    <input type="search" id="gsearch1" name="gsearch" placeholder='Search...' onInput={handleChange} />
+                    {/* <input type="search" id="gsearch1" name="gsearch" placeholder='Search...' onInput={handleChange} /> */}
 
                     {/* <input type="search" id="gsearch" name="gsearch" placeholder='Search...' onInput={handleChange} /> */}
 
@@ -183,8 +183,8 @@ export default function Home(){
                             })}
                             </ul>
                                 <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="delete-icon"/>         
-                                <img onClick={() => handleStartTask(task.id)} src={startIcon} className="start-icon"/>         
                                 <img onClick={() => handleDeleteTask(task.id)} src={editIcon} className="edit-icon"/>         
+                                <img onClick={() => handleStartTask(task.id)} src={startIcon} className="start-icon"/>         
                                 <img onClick={() => handleDeleteTask(task.id)} src={addIcon} className="add-icon"/>         
                         </div>
                     )})  : 

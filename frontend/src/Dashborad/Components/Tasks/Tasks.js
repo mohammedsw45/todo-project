@@ -78,7 +78,7 @@ const Tasks = () => {
                   <td>{task.owner.id}</td>
                   <td>{task.id}</td>
                   <td>{task.title}</td>
-                  <td>{task.updated_at}</td>
+                  <td>{dateTimeFormatter.format((Date.parse(task.updated_at)))}</td>
                   <td>{task.implementation_duration_hours} H</td>
                   <td>{task.status}</td>
                   <td>{task.begin_time === null ? "-" : dateTimeFormatter.format((Date.parse(task.begin_time)))}</td>

@@ -96,7 +96,7 @@ const NewTask = () => {
 
       <div className="create-task">
         <form onSubmit={handleSubmit} className="form">
-          <div className="title">
+          <div className="form-grid">
             <label htmlFor="title">Title: </label>
             <input
               type="text"
@@ -106,8 +106,6 @@ const NewTask = () => {
               required
               placeholder="Enter Task Title"
             />
-          </div>
-          <div className="description">
             <label htmlFor="description">Description: </label>
             <textarea
               id="description"
@@ -116,24 +114,30 @@ const NewTask = () => {
               required
               placeholder="Enter Description"
             />
-          </div>
-          <div className="time">
             <label htmlFor="time">Time in Hours:</label>
             <input
               type="number"
               id="time"
               value={time}
+              placeholder="1"
+              min={1}
               onChange={(e) => setTime(e.target.value)}
               required
             />
           </div>
-          <h1>Excuters:</h1>
-          <div className="viewers">
-            
-            <>
-            {allUsers.map((profile) => (
+
+          <h1 className="executers">Executers:</h1>
+          <div className="executers-grid">
+
+          {allUsers.map((profile) => (
               <div key={profile.user.id}>
-                <input
+                {
+                  profile.user.first_name == "" ? 
+
+                  <></>
+                : 
+                <> 
+                  <input
                   type="checkbox"
                   id={`viewer-${profile.user.id}`}
                   checked={isChecked(profile.user.id)}
@@ -142,12 +146,16 @@ const NewTask = () => {
                 <label htmlFor={`viewer-${profile.user.id}`}>
                   {profile.user.first_name} {profile.user.last_name}
                 </label>
+                </>
+                }
               </div>
             ))}
-            </>
+
           </div>
+            
+           
           <div className="create-button">
-          <button type="button" class="btn">Create</button>
+              <button className="submit" type="submit">Create</button>
           </div>
           
         </form>
