@@ -13,6 +13,7 @@ import NewTask from '../../Dashborad/Components/NewTask/NewTask';
 import NewUser from '../../Dashborad/Components/NewUser/NewUser';
 import Forget from '../../pages/forget-password/Forget';
 import Reset from './../../pages/reset-password/Reset'; 
+import EditProfile from '../../Dashborad/Components/EditProfile/EditProfile';
 
 function Main(props){
     const { user } =  useContext(AuthContext);
@@ -26,8 +27,11 @@ function Main(props){
             <Route index element={<Tasks />} /> 
             <Route path="tasks" element={<Tasks />} />
             <Route path="users" element={<Users />} />
+
             <Route path="create-new-task" element={<NewTask />} />
             <Route path="create-new-user" element={<NewUser />} />
+
+            <Route path="edit-profile/:id" element={<EditProfile />} />
           </Route>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Home />} />

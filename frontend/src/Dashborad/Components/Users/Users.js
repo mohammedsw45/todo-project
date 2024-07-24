@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ConfirmationDialog from './ConfirmationDialog'; // Import the dialog component
+import './Users.css';
 
-import './Users.css'
 const Users = () => {
   const [profiles, setUsers] = useState([]);
+  const [filtereduser, setFilteredUsers] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedProfileId, setSelectedProfileId] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -18,9 +22,9 @@ const Users = () => {
   const getAllUsers = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://192.168.1.163:8000/account/profiles', {
+      const response = await axios.get('http://192.168.142.65:8000/account/profiles', {
         headers: {
-          'Authorization': `Bearer ${accessToken}` // Corrected template literal usage
+          'Authorization': `Bearer ${accessToken}`
         }
       });
       return response.data;
@@ -30,26 +34,47 @@ const Users = () => {
     }
   };
 
-
-
-  const [filtereduser, setFilteredUsers] = useState([]);
   useEffect(() => {
-    setFilteredUsers(profiles)
-    }, [profiles])
+    setFilteredUsers(profiles);
+  }, [profiles]);
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     const filter = profiles.filter(
-      profile => profile.user.first_name.includes(e.target.value) | profile.user.last_name.includes(e.target.value)
-    )
+      profile => profile.user.first_name.includes(e.target.value) || profile.user.last_name.includes(e.target.value)
+    );
     setFilteredUsers(filter);
-  }
+  };
 
+  const handleDeleteClick = (profileId) => {
+    setSelectedProfileId(profileId);
+    setShowDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+      await axios.delete(`http://192.168.142.65:8000/account/profiles/${selectedProfileId}/delete`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      setUsers(profiles.filter(profile => profile.id !== selectedProfileId));
+      setFilteredUsers(filtereduser.filter(profile => profile.id !== selectedProfileId));
+      setShowDialog(false);
+    } catch (error) {
+      console.error('Error deleting profile:', error.message);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowDialog(false);
+  };
 
   return (
     <>
       <div className='Header'>
-        {/* <input type="search" id="gsearch" name="gsearch" placeholder='Search' onInput={handleChange} /> */}
-          <Link className='hyper-link create-Task' to="/dashboard/create-new-user">Create new User</Link>
+        <input type="search" id="gsearch" name="gsearch" placeholder='Search' onChange={handleChange} />
+        <Link className='hyper-link create-Task' to="/dashboard/create-new-user">Create new User</Link>
       </div>
 
       <div className='main'>
@@ -60,7 +85,7 @@ const Users = () => {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>User name</th>
+              <th>User Name</th>
               <th>User Type</th>
               <th></th>
               <th></th>
@@ -76,8 +101,14 @@ const Users = () => {
                   <td>{profile.user.email}</td>
                   <td>{profile.user.username}</td>
                   <td>{profile.user_type}</td>
-                  <td><button>Edit</button></td>
-                  <td><button>Delete</button></td>
+                  <td>
+                    <Link to={`/dashboard/edit-profile/${profile.id}`}>
+                      <button className="edit-btn">Edit</button>
+                    </Link>
+                  </td>
+                  <td>
+                    <button className="delete-btn" onClick={() => handleDeleteClick(profile.id)}>Delete</button>
+                  </td>
                 </tr>
               )) : 
               <tr>
@@ -87,8 +118,14 @@ const Users = () => {
           </tbody>
         </table>
       </div>
+
+      <ConfirmationDialog
+        show={showDialog}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+      />
     </>
-  )
-}
+  );
+};
 
 export default Users;

@@ -168,15 +168,25 @@ div.create-task form.form div.viewers input[type="checkbox"] {
 }
 
 
-div.create-task form.form div.create-button .submit {
-   margin: auto;
-    display: block;
-    padding: .5em;
-    background-color: #05697f;
-    color: white;
-    font-size: 1.2rem;
-    
+div.create-task form.form div.add-button{
+    margin-top: 25px;
 }
+
+div.create-task form.form div.create-button .submit {
+    margin: auto;
+     display: block;
+     padding: .5em;
+     background-color: #05697f;
+     border: 1px solid #05697f;
+     color: white;
+     font-size: 1.2rem;
+     width: 100%;
+     border-radius: 15px;
+     outline: none;
+}
+ 
+
+
 
 .btn
 {

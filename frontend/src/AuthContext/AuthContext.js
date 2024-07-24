@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
-const destination = "http://192.168.1.163:8000"
+const destination = "http://192.168.142.65:8000"
 const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() => {
     const tokens = localStorage.getItem('authTokens');
