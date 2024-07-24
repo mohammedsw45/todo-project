@@ -147,7 +147,7 @@ const NewTask = () => {
             </>
           </div>
           <div className="create-button">
-              <button className="submet" type="submit">Create</button>
+          <button type="button" class="btn">Create</button>
           </div>
           
         </form>

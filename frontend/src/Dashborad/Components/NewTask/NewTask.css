@@ -4,12 +4,11 @@
 
 .Header h1 {
     margin: 5px auto;
-    color: #00f000; 
+    color: #074407; 
 }
 
 div.create-task {
     width: 100%;
-    height: 100vh; 
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -24,6 +23,7 @@ div.create-task form.form {
     border-radius: 10px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
     overflow-y: scroll;
+    position: relative;
 }
 
 div.create-task form.form div {
@@ -34,6 +34,7 @@ div.create-task form.form div {
 div.create-task form.form div.title {
     text-align: left; 
     display: flex;
+    color: #0c0b0b;
 }
 
 div.create-task form.form div.title label {
@@ -59,6 +60,7 @@ div.create-task form.form div.title #title::placeholder {
 div.create-task form.form div.description {
     text-align: left; 
     display: flex;
+    color: #0c0b0b;
 }
 
 div.create-task form.form div.description label {
@@ -83,8 +85,12 @@ div.create-task form.form div.description #description::placeholder {
 }
 
 div.create-task form.form div.time {
+    width: 100px;
+    height: 100px;
+    animation: count 2s infinite; 
     text-align: left; 
     display: flex;
+    color: #0c0e10;    
 }
 
 div.create-task form.form div.time label {
@@ -97,8 +103,7 @@ div.create-task form.form div.time #time {
     color: #0c0b0b; 
     border: 1px solid #ccc; 
     border-radius: 5px; 
-    padding: 8px; 
-    font-size: 1rem; 
+    padding: 8px;  
 }
 
 div.create-task form.form div.time #time::placeholder {
@@ -116,9 +121,10 @@ div.create-task form.form div.viewers {
     gap: 1em; /* Space between grid items */
     padding: 1em; /* Add padding around the grid */
     box-sizing: border-box; /* Ensure padding is included in the width calculation */
+
 }
 div.create-task form.form div.viewers div{
-    border: 1px solid #fff;
+    border: 1px solid #398FE4;
     border-radius: 5px;
     padding: 5px;
 }
@@ -126,7 +132,7 @@ div.create-task form.form div.viewers label {
     display: inline; /* Ensure labels are block elements */
     margin-left: 0.5em; /* Space between checkbox and label */
     font-size: 1.2rem;
-    
+    color: #0c0e10;
 }
 
 /* Adjust input styling if needed */
@@ -135,10 +141,35 @@ div.create-task form.form div.viewers input[type="checkbox"] {
 }
 
 
-div.create-task form.form div.create-button .submet{
-    width: 100%;
+div.create-task form.form div.create-button .submet {
+    width: 28%;
     height: 50px;
+    position: relative;
     font-size: 2rem;
-    color: #0a6dee;
-    border-radius: 15px;
+    color: #021c36;
+    border-radius: 8px;
+    top: 298px;
+    right: 250px;
+    box-sizing: border-box;
+    border:none;
+    background-color:#04D3FF;
+    left:123px;
+    text-wrap: wrap;
+    
+}
+
+.btn
+{
+    width: 20%;
+    height: 40px;
+    position:sticky;
+    left:380px;
+    font-size: 1.5rem;
+    color: #021c36;
+    border-radius: 4px;
+    top: 561px;
+    border:none;
+    background-color:#04D3FF;
+
+   
 }
