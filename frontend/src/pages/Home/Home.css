@@ -107,10 +107,28 @@
 
     cursor: pointer;
     transition: .3s;
+}
+.edit-icon{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 80px;
+    top: 0px;
+
+    cursor: pointer;
+    transition: .3s;
 
 }
-.delete-icon:hover{
-    background-color: #63725f;
+.start-icon{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 108px;
+    top: 2px;
+
+    cursor: pointer;
+    transition: .3s;
+
 }
 /* width */
 ::-webkit-scrollbar {

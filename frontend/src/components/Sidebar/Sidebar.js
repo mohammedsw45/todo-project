@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Sidebar.css'
 
 import OutsideClick from "../../OutsideClick.js";
@@ -7,6 +7,8 @@ import { useRef } from "react";
 import CodeIcon from '../../icons/code.png'
 import CodeIconDark from '../../icons/code-dark.png'
 
+import LogoutIcon from '../../icons/logout.png'
+import LogoutIconDark from '../../icons/logoutDark.png'
 
 import Sun from '../../icons/sun.png';
 import SunDark from '../../icons/sun-dark.png';
@@ -19,6 +21,7 @@ import HomeIconDark from '../../icons/home-dark.png'
 
 import { getTranslation } from "../../i18n";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../AuthContext/AuthContext.js';
 
 
 
@@ -50,6 +53,9 @@ function Sidebar(props) {
   const [darkModeChanged,setDarkModeChanged] = React.useState(0);
 
   // const [isClicked_language,setIsClickedLanguage] = React.useState(false);
+  const { user } =  useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
+
 
   // function handleLanguageClick(){
   //   setIsClickedLanguage(prevState => !prevState)
@@ -287,6 +293,15 @@ function Sidebar(props) {
               )
             }
           </li>
+          {user ? 
+          <Link to='/' className={props.darkMode? 'white sidebar-link': 'black sidebar-link'} onClick={()=>{props.toggleSidebar(); logout()}}>
+            <li className={sidebarItem_home} onMouseEnter={() => changeSidebarItemLayoutEnter(1)} onMouseLeave={() => changeSidebarItemLayoutLeave(1)}>
+              {isHovering_home^props.darkMode ? (<img loading="lazy" className='sidebar-icon' src={LogoutIconDark} alt=''/>):( <img loading="lazy" className='sidebar-icon' alt='' src={LogoutIcon}/>)}
+              <span className='sidebar-icon-text'>Logout</span>
+            </li>
+          </Link>
+          : <></> 
+          }
         </ul>
       </div>
     </div>

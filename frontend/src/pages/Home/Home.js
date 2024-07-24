@@ -3,6 +3,8 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import './Home.css'
 
 import deleteIcon from '../../icons/delete.png'
+import startIcon from '../../icons/play.png'
+import editIcon from '../../icons/editing.png'
 // import myData from '../../data.json';
 export default function Home(){
     const { user } =  useContext(AuthContext);
@@ -21,10 +23,10 @@ export default function Home(){
         setTime(event.target.value);
     };
 
-    const { logout } = useContext(AuthContext);
     const { createTask } = useContext(AuthContext);
     const { getAllTasks } = useContext(AuthContext);
     const { deleteTask } = useContext(AuthContext);
+    const { startTask } = useContext(AuthContext);
     const [tasks, setTasks] = useState([]);
 
     const [filteredtasks, setFilteredTasks] = useState([]);
@@ -38,20 +40,36 @@ export default function Home(){
         )
         setFilteredTasks(filter);
     }
-    function handleDeleteTask(id){
+    
+    const handleDeleteTask = (id) =>{
         const _deleteTask = async () => {
             try {
               const res = await deleteTask(id);
               // Clear the input fields or update the UI as needed
 
               // Optionally, you can reload the page to see the updated tasks
-              // window.location.reload();
+              window.location.reload();
             } catch (error) {
               console.error('Error deleting task:', error.message);
               // Handle the error, e.g., display an error message to the user
             }
           };
           _deleteTask();
+    }
+    const handleStartTask = (id) => {
+        const _startTask = async () => {
+            try {
+              const res = await startTask(id);
+              // Clear the input fields or update the UI as needed
+
+              // Optionally, you can reload the page to see the updated tasks
+              window.location.reload();
+            } catch (error) {
+              console.error('Error deleting task:', error.message);
+              // Handle the error, e.g., display an error message to the user
+            }
+          };
+          _startTask();
     }
     function handleAddTask() {
         if (title.length > 0 && description.length > 0 && time > 0) {
@@ -108,7 +126,7 @@ export default function Home(){
                 </div>
                 <div>
                 <h2></h2>
-                <button onClick={handleAddTask}>+</button>
+                <button style={{cursor: "pointer"}} onClick={handleAddTask}>+</button>
 
 
                 </div>
@@ -148,13 +166,16 @@ export default function Home(){
                         <div className="task">
                             <h2 className="task-title">{task.title === null ? "**" : task.title}</h2>
                             <span>{task.body === null ? "**" : task.body}</span>
+                            <span>{task.implementation_duration_hours === null ? "**" : task.implementation_duration_hours}</span>
                             <div className="task-status">{task.status === null ? "**" : task.status}</div>
                             <ul className="unordered-list">
                             {task.steps.map(step => {
                                 return (<li>{step.title}</li>)
                             })}
                             </ul>
-                            <img src={deleteIcon} className="delete-icon" onClick={handleDeleteTask(task.id)}/>                            
+                                <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="delete-icon"/>         
+                                <img onClick={() => handleStartTask(task.id)} src={startIcon} className="start-icon"/>         
+                                <img onClick={() => handleDeleteTask(task.id)} src={editIcon} className="edit-icon"/>         
                         </div>
                     )})  : 
                     <h2>You have no tasks...</h2>
@@ -164,7 +185,6 @@ export default function Home(){
 
 
             </div>
-            <button onClick={logout}>logout</button>
         </div>       
         </div>
     )
