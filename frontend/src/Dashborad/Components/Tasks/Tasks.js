@@ -29,6 +29,14 @@ const Tasks = () => {
     }
   };
 
+  const dateTimeFormatter = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
 
   const [filteredtasks, setFilteredTasks] = useState([]);
   useEffect(() => {
@@ -73,8 +81,8 @@ const Tasks = () => {
                   <td>{task.updated_at}</td>
                   <td>{task.implementation_duration_hours} H</td>
                   <td>{task.status}</td>
-                  <td>{task.begin_time === null ? "**" : task.begin_time}</td>
-                  <td>{task.end_time === null ? "**" : task.end_time}</td>
+                  <td>{task.begin_time === null ? "-" : dateTimeFormatter.format((Date.parse(task.begin_time)))}</td>
+                  <td>{task.end_time === null ? "-" : task.end_time}</td>
                   <td> <button>Details</button> </td>
                 </tr>
               )) : 

@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       const response = await axios.patch(`${destination}/todo/tasks/${id}/update/`,
         {
-          "status": "Open",
+          "status": "In Progress",
 
 
         }, {

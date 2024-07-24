@@ -10,6 +10,10 @@
 }
 .home-container{
     /* background-color: rgba(33, 34, 42, 0.95);; */
+    padding: 0 10px;
+    border-right: 1px dashed black;
+    border-left: 1px dashed black;
+
 }
 .task-controller{
     display: grid;
@@ -17,9 +21,8 @@
     column-gap: 2em;
     row-gap: 2em;
 
-    background-color: rgb(216, 216, 216);
-    padding: 3em;
-    padding-bottom: 1em;
+    background-color: #c7c7c7;
+    padding: 2em 3em;
     border-bottom: 1px solid black;
 }
 .task-controller h2{
@@ -27,6 +30,11 @@
 }
 #time{
     margin-bottom: 12px;
+}
+#gsearch1{
+    padding: 4px;
+    width: 100%;
+    overflow: hidden;
 
 }
 .container--home input[type=text]{
@@ -76,34 +84,50 @@
 .task{
     position: relative;
     padding: 4px;
-    margin-bottom: 1em;
+    /* margin-bottom: 1em; */
     border-bottom: 1px solid black; 
 }
 .task-title{
     color: #1b5e05;
-    margin-bottom: .2em;
+    margin-bottom: .5em;
 }
 .task-status{
     position: absolute;
     padding: 0 8px;
-    background-color: #1b5e05;
     color: white;
     font-size: .8rem;
     font-weight: bold;
     right: 0px;
     top: 0px;
 }
+.todo{
+    background-color: #1b5e05;
+}
+.inProgress{
+    background-color: #ceac13;
+    color: #000;
+}
+.Done{
+    background-color: #1100ff;
+    color: #ffffff;
+}
+.Cancelled{
+    background-color: #c21111;
+    color: #e7e7e7;
+}
 .unordered-list{
     list-style-type: circle;
     list-style-position: inside;
-
+}
+.width70percent{
+    width: 65%;
 }
 .delete-icon{
     width: 22px;
     height: 22px;
     position: absolute;
-    right: 55px;
-    top: 0px;
+    right: 10px;
+    top: 40px;
 
     cursor: pointer;
     transition: .3s;
@@ -112,8 +136,8 @@
     width: 22px;
     height: 22px;
     position: absolute;
-    right: 80px;
-    top: 0px;
+    right: 35px;
+    top: 40px;
 
     cursor: pointer;
     transition: .3s;
@@ -123,12 +147,22 @@
     width: 22px;
     height: 22px;
     position: absolute;
-    right: 108px;
-    top: 2px;
+    right: 63px;
+    top: 42px;
 
     cursor: pointer;
     transition: .3s;
 
+}
+.add-icon{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 88px;
+    top: 42px;
+
+    cursor: pointer;
+    transition: .3s;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -155,5 +189,15 @@
     }
     .task-controller button{
         margin-top: 0;
+    }
+}
+@media(max-width: 600px){
+    .buttons{
+        font-size: .9rem;
+    }
+}
+@media(max-width: 500px){
+    .buttons{
+        font-size: .8rem;
     }
 }

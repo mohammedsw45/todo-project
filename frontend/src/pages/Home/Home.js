@@ -5,6 +5,7 @@ import './Home.css'
 import deleteIcon from '../../icons/delete.png'
 import startIcon from '../../icons/play.png'
 import editIcon from '../../icons/editing.png'
+import addIcon from '../../icons/add.png'
 // import myData from '../../data.json';
 export default function Home(){
     const { user } =  useContext(AuthContext);
@@ -103,7 +104,7 @@ export default function Home(){
     return(
         <div className="container--home">
             <div className="home-container">
-            <h1 className="title">My Todos {user.username}</h1>
+            {/* <h1 className="title">My Todos {user.username}</h1> */}
             <div className="task-controller">
                 
                 <div>
@@ -144,8 +145,10 @@ export default function Home(){
                     onChange={onTimeChange}/>
 
                 </div>
+
             </div>
             <div>
+
                 <div className="buttons">
                     <div style={{backgroundColor: "#46663B"}} className="button">
                         <span>To Do</span>
@@ -154,21 +157,27 @@ export default function Home(){
                         <span>In Progress</span>
                     </div>
                     <div className="button">
-                        <span>Completed</span>
+                        <span>Done</span>
                     </div>
-                    <input type="search" id="gsearch" name="gsearch" placeholder='Search...' onInput={handleChange} />
+                    <input type="search" id="gsearch1" name="gsearch" placeholder='Search...' onInput={handleChange} />
+
+                    {/* <input type="search" id="gsearch" name="gsearch" placeholder='Search...' onInput={handleChange} /> */}
+
                 </div>
+
                 <div className="tasks">
                     {filteredtasks != null ? 
                     filteredtasks.map(task => {
                         console.log(task.steps)
                         return (
                         <div className="task">
-                            <h2 className="task-title">{task.title === null ? "**" : task.title}</h2>
-                            <span>{task.body === null ? "**" : task.body}</span>
-                            <span>{task.implementation_duration_hours === null ? "**" : task.implementation_duration_hours}</span>
-                            <div className="task-status">{task.status === null ? "**" : task.status}</div>
-                            <ul className="unordered-list">
+                            <h2 className="task-title width70percent">{task.title === null ? "**" : <><span>{task.title}</span><span style={{fontSize: "12px", color: "#fff", border: "1px solid black", marginLeft: "1em",textWrap: "nowrap",padding: ".3em",borderRadius: "12px", backgroundColor: "#463B3B"}}>{task.implementation_duration_hours+"  Hours"}</span></>}</h2>
+                            <div className="width70percent">
+                              <span>{task.body === null ? "**" : task.body}</span>
+                              {/* <span>{task.implementation_duration_hours === null ? "**" : task.implementation_duration_hours}</span> */}
+                            </div>
+                            <div className={task.status === "To Do" ? "task-status todo" : task.status === "In Progress" ? "task-status inProgress": task.status === "Done" ? "task-status Done": "task-status Cancelled"}>{task.status}</div>
+                            <ul className="unordered-list width70percent">
                             {task.steps.map(step => {
                                 return (<li>{step.title}</li>)
                             })}
@@ -176,6 +185,7 @@ export default function Home(){
                                 <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="delete-icon"/>         
                                 <img onClick={() => handleStartTask(task.id)} src={startIcon} className="start-icon"/>         
                                 <img onClick={() => handleDeleteTask(task.id)} src={editIcon} className="edit-icon"/>         
+                                <img onClick={() => handleDeleteTask(task.id)} src={addIcon} className="add-icon"/>         
                         </div>
                     )})  : 
                     <h2>You have no tasks...</h2>
