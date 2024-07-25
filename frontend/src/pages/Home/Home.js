@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState } from "react";
 import { AuthContext } from '../../AuthContext/AuthContext';
 import Popup from 'reactjs-popup';
-
+import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import './Home.css'
 
 import deleteIcon from '../../icons/delete.png'
@@ -15,6 +15,10 @@ export default function Home(){
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [time, setTime] = useState(1);
+    const [selectedTaskId, setSelectedTaskId] = useState(null);
+    const [showDialog, setShowDialog] = useState(false);
+
+
 
     const onTitleChange = (event) => {
         setTitle(event.target.value);
@@ -44,20 +48,28 @@ export default function Home(){
         setFilteredTasks(filter);
     }
     
+    const DeleteTask = (id) => {
+      const _deleteTask = async () => {
+        try {
+          const res = await deleteTask(id);
+          // Clear the input fields or update the UI as needed
+          console.log("hhh")
+          // Optionally, you can reload the page to see the updated tasks
+          // window.location.reload();
+          
+        } catch (error) {
+          console.error('Error deleting task:', error.message);
+          // Handle the error, e.g., display an error message to the user
+        }
+      };
+      _deleteTask();
+    }
+    const handleCancelDelete = () => {
+      setShowDialog(false);
+    };
     const handleDeleteTask = (id) =>{
-        const _deleteTask = async () => {
-            try {
-              const res = await deleteTask(id);
-              // Clear the input fields or update the UI as needed
-
-              // Optionally, you can reload the page to see the updated tasks
-              window.location.reload();
-            } catch (error) {
-              console.error('Error deleting task:', error.message);
-              // Handle the error, e.g., display an error message to the user
-            }
-          };
-          _deleteTask();
+      setSelectedTaskId(id);
+      setShowDialog(true);
     }
     const handleStartTask = (id) => {
         const _startTask = async () => {
@@ -207,7 +219,14 @@ export default function Home(){
 
 
             </div>
-        </div>       
+        </div> 
+        <ConfirmationDialog
+        message = "Are you sure you want to delete this task?"
+        show={showDialog}
+        onClose={handleCancelDelete}
+        onConfirm={DeleteTask(selectedTaskId)}
+      />      
         </div>
+        
     )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import ConfirmationDialog from './ConfirmationDialog'; // Import the dialog component
+import ConfirmationDialog from '../../../components/ConfirmationDialog/ConfirmationDialog'; // Import the dialog component
 import './Users.css';
 
 const Users = () => {
@@ -120,6 +120,7 @@ const Users = () => {
       </div>
 
       <ConfirmationDialog
+        message = "Are you sure you want to delete this user?"
         show={showDialog}
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}
