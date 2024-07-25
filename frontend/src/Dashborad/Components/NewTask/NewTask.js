@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom";
+import {destination} from '../../../AuthContext/General.js'
+
 
 import axios from 'axios';
 import './NewTask.css';
@@ -28,8 +30,7 @@ const NewTask = () => {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       console.log(accessToken);
       await axios.post(
-        'http://192.168.1.98:8000/todo/admin/tasks/create/',
-
+        `http://${destination}/todo/admin/tasks/create/`,
         { 
           "title": title,
           "body": description,
@@ -52,7 +53,8 @@ const NewTask = () => {
   const getAllUsers = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://192.168.1.98:8000/account/profiles', {
+
+      const response = await axios.get(`${destination}/account/profiles`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }

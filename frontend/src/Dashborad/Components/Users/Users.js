@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ConfirmationDialog from '../../../components/ConfirmationDialog/ConfirmationDialog'; // Import the dialog component
 import './Users.css';
+import {destination} from '../../../AuthContext/General.js'
+
 
 const Users = () => {
   const [profiles, setUsers] = useState([]);
@@ -22,7 +24,7 @@ const Users = () => {
   const getAllUsers = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://192.168.1.98:8000/account/profiles', {
+      const response = await axios.get(`${destination}/account/profiles`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
@@ -51,9 +53,11 @@ const Users = () => {
   };
 
   const handleConfirmDelete = async () => {
+    console.log(selectedProfileId)
+
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      await axios.delete(`http://192.168.1.98:8000/account/profiles/${selectedProfileId}/delete`, {
+      const res = await axios.delete(`${destination}/account/profiles/${selectedProfileId}/delete`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
@@ -94,7 +98,7 @@ const Users = () => {
           <tbody>
             {filtereduser.length > 0 ? 
               filtereduser.map(profile => (
-                <tr key={profile.id}>
+                <tr key={profile.user.id}>
                   <td>{profile.id}</td>
                   <td>{profile.user.first_name}</td>
                   <td>{profile.user.last_name}</td>
@@ -107,7 +111,7 @@ const Users = () => {
                     </Link>
                   </td>
                   <td>
-                    <button className="delete-btn" onClick={() => handleDeleteClick(profile.id)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeleteClick(profile.user.id)}>Delete</button>
                   </td>
                 </tr>
               )) : 
@@ -123,7 +127,7 @@ const Users = () => {
         message = "Are you sure you want to delete this user?"
         show={showDialog}
         onClose={handleCancelDelete}
-        onConfirm={handleConfirmDelete}
+        onConfirm={()=>handleConfirmDelete()}
       />
     </>
   );

@@ -1,8 +1,9 @@
 import React, { createContext, useState } from 'react';
 import axios from 'axios';
+import { destination } from './General';
+
 
 const AuthContext = createContext();
-const destination = "http://192.168.1.98:8000"
 const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() => {
     const tokens = localStorage.getItem('authTokens');
@@ -17,7 +18,7 @@ const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://192.168.1.98:8000/account/token/', { username, password });
+      const response = await axios.post(`${destination}/account/token/', { username, password });
       setAuthTokens(response.data);
       const user = JSON.parse(atob(response.data.access.split('.')[1]));
       setUser(user);
