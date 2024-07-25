@@ -18,13 +18,12 @@ const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post(`${destination}/account/token/`, { username, password });
-      console.log("Login");
-      console.log(response.data);
+      const response = await axios.post(`${destination}/account/token/', { username, password });
       setAuthTokens(response.data);
-      setUser(JSON.parse(atob(response.data.access.split('.')[1])));
+      const user = JSON.parse(atob(response.data.access.split('.')[1]));
+      setUser(user);
       localStorage.setItem('authTokens', JSON.stringify(response.data));
-      return { success: true };
+      return { success: true, user };
     } catch (error) {
       console.error('Login failed', error);
       return { success: false, message: error.response.data.detail };

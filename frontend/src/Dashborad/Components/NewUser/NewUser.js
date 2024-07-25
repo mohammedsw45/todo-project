@@ -16,7 +16,6 @@ const NewUser = () => {
 
   const createUser = async (FirstName, LastName, Email, Password, UserType) => {
     try {
-      console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
 
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       await axios.post(
