@@ -17,7 +17,7 @@ const EditProfile = () => {
         const fetchProfile = async () => {
             try {
                 const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-                const response = await axios.get(`http://192.168.142.65:8000/account/profiles/${id}`, {
+                const response = await axios.get(`http://192.168.1.98:8000/account/profiles/${id}`, {
                   headers: {
                     'Authorization': `Bearer ${accessToken}`
                   }
@@ -39,7 +39,7 @@ const EditProfile = () => {
         try {
             const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
             await axios.put(
-                `http://192.168.142.65:8000/account/profiles/${id}/update`,
+                `http://192.168.1.98:8000/account/profiles/${id}/update`,
                 {
                     "user": {
                         "first_name": FirstName,

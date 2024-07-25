@@ -22,7 +22,7 @@ const Users = () => {
   const getAllUsers = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://127.0.0.1:8000/account/profiles', {
+      const response = await axios.get('http://192.168.1.98:8000/account/profiles', {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
@@ -53,7 +53,7 @@ const Users = () => {
   const handleConfirmDelete = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      await axios.delete(`http://192.168.142.65:8000/account/profiles/${selectedProfileId}/delete`, {
+      await axios.delete(`http://192.168.1.98:8000/account/profiles/${selectedProfileId}/delete`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }

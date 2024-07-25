@@ -28,11 +28,8 @@ const NewTask = () => {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       console.log(accessToken);
       await axios.post(
-// <<<<<<< HEAD
-        'http://127.0.0.1:8000/todo/admin/tasks/create/',
-// =======
-        // 'http://192.168.142.65:8000/todo/admin/tasks/create/',
-// >>>>>>> bd79f4c020a4b739c2901b5dda024b1b73aef331
+        'http://192.168.1.98:8000/todo/admin/tasks/create/',
+
         { 
           "title": title,
           "body": description,
@@ -55,7 +52,7 @@ const NewTask = () => {
   const getAllUsers = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://127.0.0.1:8000/account/profiles', {
+      const response = await axios.get('http://192.168.1.98:8000/account/profiles', {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
@@ -136,7 +133,7 @@ const NewTask = () => {
           {allUsers.map((profile) => (
               <div key={profile.user.id}>
                 {
-                  profile.user.first_name == "" ? 
+                  profile.user.first_name === "" ? 
 
                   <></>
                 : 

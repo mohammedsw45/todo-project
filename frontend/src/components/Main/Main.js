@@ -15,39 +15,41 @@ import Forget from '../../pages/forget-password/Forget';
 import Reset from './../../pages/reset-password/Reset'; 
 import EditProfile from '../../Dashborad/Components/EditProfile/EditProfile';
 
-function Main(props){
-    const { user } =  useContext(AuthContext);
-    return(
-        <div className="main-container">
-        
-        
-        {user ?
+function Main(props) {
+  const { user } = useContext(AuthContext);
+  return (
+    <div className="main-container">
+      {user ? (
         <Routes>
-          <Route path="/dashboard/" element={<Dashborad />}>
-            <Route index element={<Tasks />} /> 
-            <Route path="tasks" element={<Tasks />} />
-            <Route path="users" element={<Users />} />
-
-            <Route path="create-new-task" element={<NewTask />} />
-            <Route path="create-new-user" element={<NewUser />} />
-
-            <Route path="edit-profile/:id" element={<EditProfile />} />
-          </Route>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<Home />} />
+          {user.is_staff ? (
+            <>
+            <Route path="/dashboard/" element={<Dashborad />}>
+              <Route index element={<Tasks />} />
+              <Route path="tasks" element={<Tasks />} />
+              <Route path="users" element={<Users />} />
+              <Route path="create-new-task" element={<NewTask />} />
+              <Route path="create-new-user" element={<NewUser />} />
+              <Route path="edit-profile/:id" element={<EditProfile />} />
+            </Route>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<Home />} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="*" element={<Home />} />
+            </>
+          )}
         </Routes>
-       : 
+      ) : (
         <Routes>
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/register" element={<Register />}  />
-          <Route path="/login" element={<Login />} /> */}
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/forget" element={<Forget />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      }
+      )}
     </div>
   );
 }

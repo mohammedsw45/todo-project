@@ -14,11 +14,10 @@ const NewUser = () => {
 
   const createUser = async (FirstName, LastName, Email, Password, UserType) => {
     try {
-      console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
 
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       await axios.post(
-        'http://192.168.142.65:8000/account/profiles/add/',
+        'http://192.168.1.98:8000/account/profiles/add/',
         { 
           "first_name": FirstName,
           "last_name": LastName,
