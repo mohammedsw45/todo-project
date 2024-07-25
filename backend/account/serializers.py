@@ -56,6 +56,9 @@ class EditProfileSerializer(serializers.ModelSerializer):
         if user_serializer.is_valid():
             user_serializer.save()
         instance.user_type = validated_data.get('user_type', instance.user_type)
+        if instance.user_type == "admin":
+            instance.user.is_superuser = True
+            instance.user.is_staff = True
         instance.save()
         return instance
 

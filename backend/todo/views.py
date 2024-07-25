@@ -5,7 +5,8 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework import status
 from .serializers import TaskSerializer,CreateTaskSerializer,StepSerializer
 from .models import Task,Step
-from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from account.permissions import CustomIsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['GET'])
@@ -234,25 +235,25 @@ def delete_step(request, task_pk, step_pk):
 
 #Tasks
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_get_user_tasks(request):
     if request.method == 'GET':
         # Filter tasks where the current user is in the viewers list
-        tasks = Task.objects.filter(viewers=request.user)
+        tasks = Task.objects.all()
         serializer = TaskSerializer(tasks, many=True)
         
         return Response({"tasks": serializer.data}, status=status.HTTP_200_OK)
 
         
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_get_one_task(request, pk):
-    task = get_object_or_404(Task, id=pk, viewers=request.user)
+    task = get_object_or_404(Task, id=pk)
     serializer = TaskSerializer(task, many=False)
     return Response({"task": serializer.data})
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_create_task(request):
     if request.method == 'POST':
         task_data = request.data
@@ -297,7 +298,7 @@ def admin_create_task(request):
 
 
 @api_view(['PUT', 'PATCH'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_update_task(request, pk=None):
     if request.method in ['PUT', 'PATCH']:
         try:
@@ -338,7 +339,7 @@ def admin_update_task(request, pk=None):
 
 
 @api_view(["DELETE"])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_delete_task(request, pk):
     task = get_object_or_404(Task, id = pk)
     if  request.user.is_staff or task.owner== request.user:
@@ -355,10 +356,10 @@ def admin_delete_task(request, pk):
 #Steps
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_get_steps_for_task(request, pk):
     try:
-        task = get_object_or_404(Task, id=pk, viewers=request.user)
+        task = get_object_or_404(Task, id=pk)
     except Task.DoesNotExist:
         return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -367,10 +368,10 @@ def admin_get_steps_for_task(request, pk):
     return Response({"steps": serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_get_one_step_for_task(request, task_pk, step_pk):
     try:
-        task = get_object_or_404(Task, id=task_pk, viewers=request.user)
+        task = get_object_or_404(Task, id=task_pk)
     except Task.DoesNotExist:
         return Response({"error": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -385,11 +386,11 @@ def admin_get_one_step_for_task(request, task_pk, step_pk):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated,IsAdminUser])
+@permission_classes([IsAuthenticated,CustomIsAdminUser])
 def admin_add_step(request, pk):
     if request.method == 'POST':
         # Ensure the task belongs to the authenticated user
-        task = get_object_or_404(Task, id=pk, viewers=request.user)
+        task = get_object_or_404(Task, id=pk)
         
         data = request.data
         # Add task information to the step data
@@ -409,11 +410,11 @@ def admin_add_step(request, pk):
         return Response(step_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_update_step(request, task_pk, step_pk):
     if request.method == 'PUT':
         # Ensure the task belongs to the authenticated user
-        task = get_object_or_404(Task, id=task_pk, viewers=request.user)
+        task = get_object_or_404(Task, id=task_pk)
         
         # Ensure the step belongs to the specified task
         step = get_object_or_404(Step, id=step_pk, task=task)
@@ -432,7 +433,7 @@ def admin_update_step(request, task_pk, step_pk):
         return Response(step_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def admin_delete_step(request, task_pk, step_pk):
     if request.method == 'DELETE':
         # Ensure the task belongs to the authenticated user

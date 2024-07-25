@@ -8,8 +8,9 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from .permissions import CustomIsAdminUser
 
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 from datetime import timedelta
 from django.utils.crypto import get_random_string
@@ -55,6 +56,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
 	token['is_staff'] = user.is_staff
 
+        token['is_staff'] = user.is_staff
+
         return token
     
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -77,7 +80,7 @@ def current_user(request):
     return Response(user.data)
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def update_user(request):
     user = request.user
     user.username = request.data['email']
@@ -141,21 +144,21 @@ def reset_password(request, token):
 
 #Dashboard
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def get_all_profiles(request):
     profiles = Profile.objects.all()
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def get_profile(request, pk):
     profile = get_object_or_404(Profile, id=pk)
     serializer = ProfileSerializer(profile, many=False)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def add_profile(request):
     data = request.data
     user = SingUpSerializer(data=data)
@@ -190,26 +193,65 @@ def add_profile(request):
         return Response(user.errors)
 
 
+# @api_view(['PUT'])
+# @permission_classes([IsAuthenticated, CustomIsAdminUser])
+# def update_profile(request, pk):
+#     try:
+#         profile = Profile.objects.get(id=pk)
+#     except profile.DoesNotExist:
+#         return Response({"error": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
+
+#     data = request.data
+#     profile_serializer = EditProfileSerializer(profile, data=data, partial=True)
+
+#     if profile_serializer.is_valid():
+#         profile_serializer.save()
+#         return Response({"result": "The user has been updated successfully"}, status=status.HTTP_200_OK)
+#     else:
+#         return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def update_profile(request, pk):
     try:
         profile = Profile.objects.get(id=pk)
-    except profile.DoesNotExist:
+    except Profile.DoesNotExist:
         return Response({"error": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
 
     data = request.data
-    profile_serializer = EditProfileSerializer(profile, data=data, partial=True)
 
+    # Separate user data from profile data
+    user_data = data.get('user', None)
+    user = profile.user
+
+    # Update user data if provided
+    if user_data:
+        user_serializer = UserSerializer(user, data=user_data, partial=True)
+        if user_serializer.is_valid():
+            user_serializer.save()
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Update profile data
+    profile_serializer = EditProfileSerializer(profile, data=data, partial=True)
     if profile_serializer.is_valid():
-        profile_serializer.save()
+        profile = profile_serializer.save()
+
+        # Additional logic for admin user type
+        if profile.user_type == "admin":
+            user.is_superuser = True
+            user.is_staff = True
+            user.save()
+        elif profile.user_type == "employee":
+            user.is_superuser = False
+            user.is_staff = False
+            user.save()
+
         return Response({"result": "The user has been updated successfully"}, status=status.HTTP_200_OK)
     else:
         return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
 @api_view(["DELETE"])
-@permission_classes([IsAuthenticated, IsAdminUser])
+@permission_classes([IsAuthenticated, CustomIsAdminUser])
 def delete_profile(request, pk):
     profile = get_object_or_404(Profile, id=pk)
     
