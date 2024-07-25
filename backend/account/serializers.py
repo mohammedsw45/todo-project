@@ -18,7 +18,7 @@ class SingUpSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','first_name', 'last_name', 'email', 'username')
+        fields = ('id','first_name', 'last_name', 'email', 'username', 'is_staff')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
