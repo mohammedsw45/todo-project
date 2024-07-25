@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {destination} from '../../../AuthContext/General.js'
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]); 
@@ -17,7 +18,7 @@ const Tasks = () => {
   const getAllTasks = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://127.0.0.1:8000/todo/admin/tasks', {
+      const response = await axios.get(`${destination}/todo/admin/tasks`, {
         headers: {
           'Authorization': `Bearer ${accessToken}` // Corrected template literal usage
         }

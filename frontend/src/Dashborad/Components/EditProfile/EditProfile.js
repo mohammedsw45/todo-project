@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import './EditProfile.css';
+import { destination } from '../../../AuthContext/General.js';
+
 
 const EditProfile = () => {
     const { id } = useParams(); 
@@ -17,7 +19,7 @@ const EditProfile = () => {
         const fetchProfile = async () => {
             try {
                 const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-                const response = await axios.get(`http://192.168.142.65:8000/account/profiles/${id}`, {
+                const response = await axios.get(`${destination}/account/profiles/${id}`, {
                   headers: {
                     'Authorization': `Bearer ${accessToken}`
                   }
@@ -39,7 +41,7 @@ const EditProfile = () => {
         try {
             const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
             await axios.put(
-                `http://192.168.142.65:8000/account/profiles/${id}/update`,
+                `${destination}/account/profiles/${id}/update`,
                 {
                     "user": {
                         "first_name": FirstName,

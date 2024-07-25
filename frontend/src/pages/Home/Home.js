@@ -18,6 +18,8 @@ export default function Home(){
     const [selectedTaskId, setSelectedTaskId] = useState(null);
     const [showDialog, setShowDialog] = useState(false);
 
+    const [stepTitle, setStepTitle] = useState('');
+    const [stepDescription, setStepDescription] = useState('');
 
 
     const onTitleChange = (event) => {
@@ -28,6 +30,14 @@ export default function Home(){
     };
     const onTimeChange = (event) => {
         setTime(event.target.value);
+    };
+
+    const onStepTitleChange = (event) => {
+      setStepTitle(event.target.value);
+    };
+    
+    const onStepDescriptionChange = (event) => {
+      setStepDescription(event.target.value);
     };
 
     const { createTask } = useContext(AuthContext);
@@ -48,35 +58,34 @@ export default function Home(){
         setFilteredTasks(filter);
     }
     
-    const DeleteTask = (id) => {
-      const _deleteTask = async () => {
+    const handleDeleteTask = (id) =>{
+      setSelectedTaskId(id);
+      setShowDialog(true);
+    }
+
+    const DeleteTask = async() => {
         try {
-          const res = await deleteTask(id);
+          const res = await deleteTask(selectedTaskId);
           // Clear the input fields or update the UI as needed
-          console.log("hhh")
+
+          setShowDialog(false);
           // Optionally, you can reload the page to see the updated tasks
-          // window.location.reload();
+          window.location.reload();
           
         } catch (error) {
           console.error('Error deleting task:', error.message);
           // Handle the error, e.g., display an error message to the user
         }
       };
-      _deleteTask();
-    }
+    
     const handleCancelDelete = () => {
       setShowDialog(false);
     };
-    const handleDeleteTask = (id) =>{
-      setSelectedTaskId(id);
-      setShowDialog(true);
-    }
     const handleStartTask = (id) => {
         const _startTask = async () => {
             try {
               const res = await startTask(id);
               // Clear the input fields or update the UI as needed
-
               // Optionally, you can reload the page to see the updated tasks
               window.location.reload();
             } catch (error) {
@@ -200,10 +209,24 @@ export default function Home(){
                                 <Popup position="right center" trigger= {<img src={addIcon} className="add-icon"/>} modal nested> 
                                   <div className="popup">
                                     <div className="popup-content">
-                                      geeks
-                                      <button>Click here</button> 
-
+                                      <h2>Step Name:</h2>
+                                      <input 
+                                          type="text" 
+                                          name="stepTitle"
+                                          value={stepTitle}
+                                          onChange={onStepTitleChange}/>
                                     </div>
+                                    <div className="popup-content">
+                                      <h2>Step Description:</h2>
+                                      <textarea 
+                                          type="text" 
+                                          name="stepDescription"
+                                          value={stepDescription}
+                                          cols="40"
+                                          rows="5"
+                                          onChange={onStepDescriptionChange}/>
+                                    </div>
+                                    <button>Submit</button>
                                   </div>
                                 </Popup>
                 
@@ -224,7 +247,7 @@ export default function Home(){
         message = "Are you sure you want to delete this task?"
         show={showDialog}
         onClose={handleCancelDelete}
-        onConfirm={DeleteTask(selectedTaskId)}
+        onConfirm={()=>DeleteTask(selectedTaskId)}
       />      
         </div>
         

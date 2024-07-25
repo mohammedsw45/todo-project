@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './NewUser.css';
+import {destination} from '../../../AuthContext/General.js'
+
 
 const NewUser = () => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const NewUser = () => {
 
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       await axios.post(
-        'http://192.168.142.65:8000/account/profiles/add/',
+        `${destination}/account/profiles/add/`,
         { 
           "first_name": FirstName,
           "last_name": LastName,

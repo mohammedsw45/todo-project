@@ -1,8 +1,9 @@
 import React, { createContext, useState } from 'react';
 import axios from 'axios';
+import { destination } from './General';
+
 
 const AuthContext = createContext();
-const destination = "http://127.0.0.1:8000"
 const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() => {
     const tokens = localStorage.getItem('authTokens');
