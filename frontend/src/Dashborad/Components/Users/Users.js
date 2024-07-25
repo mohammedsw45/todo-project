@@ -18,7 +18,7 @@ const Users = () => {
   const getAllUsers = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get('http://192.168.1.163:8000/account/profiles', {
+      const response = await axios.get('http://127.0.0.1:8000/account/profiles', {
         headers: {
           'Authorization': `Bearer ${accessToken}` // Corrected template literal usage
         }

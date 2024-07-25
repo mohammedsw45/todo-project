@@ -1,5 +1,7 @@
 import React, {useContext, useEffect, useState } from "react";
 import { AuthContext } from '../../AuthContext/AuthContext';
+import Popup from 'reactjs-popup';
+
 import './Home.css'
 
 import deleteIcon from '../../icons/delete.png'
@@ -183,9 +185,19 @@ export default function Home(){
                             })}
                             </ul>
                                 <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="delete-icon"/>         
-                                <img onClick={() => handleDeleteTask(task.id)} src={editIcon} className="edit-icon"/>         
+                                <Popup position="right center" trigger= {<img src={addIcon} className="add-icon"/>} modal nested> 
+                                  <div className="popup">
+                                    <div className="popup-content">
+                                      geeks
+                                      <button>Click here</button> 
+
+                                    </div>
+                                  </div>
+                                </Popup>
+                
+                                <img src={editIcon} className="edit-icon"/>
                                 <img onClick={() => handleStartTask(task.id)} src={startIcon} className="start-icon"/>         
-                                <img onClick={() => handleDeleteTask(task.id)} src={addIcon} className="add-icon"/>         
+                                {/* <img src={addIcon} className="add-icon"/>          */}
                         </div>
                     )})  : 
                     <h2>You have no tasks...</h2>

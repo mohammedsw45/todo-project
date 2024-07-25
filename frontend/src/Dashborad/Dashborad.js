@@ -13,6 +13,15 @@ const Dashborad = (props) => {
           <div className='TasksLink'>
             <Link to="/dashboard/tasks">Tasks</Link>
           </div>
+          <div className='TasksLink'>
+            <Link to="/dashboard/tasks" style={{color: "white", backgroundColor: "#0569ff"}}>Ongoing Tasks</Link>
+          </div>
+          <div className='TasksLink'>
+            <Link to="/dashboard/tasks" style={{color: "white", backgroundColor: "#056955"}}>Finished Tasks</Link>
+          </div>
+          <div className='TasksLink'>
+            <Link to="/dashboard/tasks" style={{color: "white", backgroundColor: "#0690ff"}}>Cancelled Tasks</Link>
+          </div>
 
           <div className='UsersLink'>
             <Link to="/dashboard/users">Users</Link>
