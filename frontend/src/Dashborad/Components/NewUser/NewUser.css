@@ -1,0 +1,95 @@
+.Header {
+    width: 100%;
+}
+
+.Header h1 {
+    margin: 5px auto;
+    color: #074407; 
+}
+.form-grid{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-row-gap: 2em;
+}
+.form-grid label, .form-grid h1{
+    color: black;
+}
+.form-grid input[type="text"]{
+    padding: 10px 0;
+    color: black;
+    border-radius: 3px;
+    border: 1px solid gray;
+    text-indent: 5px;
+}
+
+div.create-user {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+}
+
+div.create-user form.form {
+    height: auto; 
+    margin-top: 10px;
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    overflow-y: scroll;
+    position: relative;
+}
+
+
+
+div.create-user form.form .form-grid .field{
+    width: calc(100% - 1em);
+    color: #0c0b0b; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 8px; 
+    font-size: 1rem; 
+}
+
+div.create-user form.form .form-grid .field::placeholder{
+    color: #a0a0a0; 
+    font-size: 1rem; 
+    opacity: 1; 
+}
+
+
+
+div.create-user form.form .form-grid div.user_type{
+    display: flex;
+    justify-content: space-around;
+}
+
+div.create-user form.form div.add-button{
+    margin-top: 25px;
+}
+
+div.create-user form.form div.add-button .submit {
+    margin: auto;
+     display: block;
+     padding: .5em;
+     background-color: #05697f;
+     border: 1px solid #05697f;
+     color: white;
+     font-size: 1.2rem;
+     width: 100%;
+     border-radius: 15px;
+     outline: none;
+}
+ 
+
+
+
+
+
+@media(max-width: 900px){
+    .form-grid, .executers-grid{
+        grid-template-columns: 1fr;
+    }
+}
+
+
