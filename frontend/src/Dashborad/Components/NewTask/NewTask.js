@@ -30,7 +30,7 @@ const NewTask = () => {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       console.log(accessToken);
       await axios.post(
-        `http://${destination}/todo/admin/tasks/create/`,
+        `${destination}/todo/admin/tasks/create/`,
         { 
           "title": title,
           "body": description,

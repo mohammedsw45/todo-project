@@ -83,7 +83,7 @@ const Tasks = () => {
                   <td>{task.implementation_duration_hours} H</td>
                   <td>{task.status}</td>
                   <td>{task.begin_time === null ? "-" : dateTimeFormatter.format((Date.parse(task.begin_time)))}</td>
-                  <td>{task.end_time === null ? "-" : task.end_time}</td>
+                  <td>{task.end_time === null ? "-" : dateTimeFormatter.format((Date.parse(task.end_time)))}</td>
                   <td> <button>Details</button> </td>
                 </tr>
               )) : 

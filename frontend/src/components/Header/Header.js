@@ -88,10 +88,10 @@ function Header(props) {
                         <span>{getTranslation(props.language).header.navbar.home}</span>
                     </li>
                   </Link>
-                  <Link to='/our_services' className={props.darkMode? 'white header-link': 'black header-link'}>
+                  <Link to='/dashboard' className={props.darkMode? 'white header-link': 'black header-link'}>
                     <li className={props.language==='ar' ? "nav-item hide-800 bidi-text" : "nav-item hide-800"}>
                       {props.darkMode ? (<img className='nav-icon' src={CodeIconDark} alt=''/>):( <img className='nav-icon' src={CodeIcon} alt=''/>)}
-                      <span>{getTranslation(props.language).header.navbar.our_services}</span>
+                      <span>Dashboard</span>
                     </li>
                   </Link>
                     <li className='nav-item'>

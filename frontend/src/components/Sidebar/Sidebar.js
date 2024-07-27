@@ -196,10 +196,10 @@ function Sidebar(props) {
           </Link>
           {/* TO SHOW THE ACADEMY BUTTON PLEASE UNCOMMENT THE TEXT BELOW */}
           {/* <a href='/academy' className={props.darkMode? 'display-none white sidebar-link show-800': 'display-none black sidebar-link show-800'}> */}
-          <Link to='/tasks' className={props.darkMode? 'white sidebar-link show-800': 'black sidebar-link show-800'} onClick={()=>props.toggleSidebar()}>
+          <Link to='/dashboard' className={props.darkMode? 'white sidebar-link show-800': 'black sidebar-link show-800'} onClick={()=>props.toggleSidebar()}>
             <li className={sidebarItem_tasks} onMouseEnter={() => changeSidebarItemLayoutEnter(2)} onMouseLeave={() => changeSidebarItemLayoutLeave(2)}>
               {isHovering_tasks^props.darkMode ? (<img loading="lazy" className='sidebar-icon' src={CodeIconDark} alt=''/>):( <img loading="lazy" className='sidebar-icon' alt='' src={CodeIcon}/>)}
-              <span className='sidebar-icon-text'>{getTranslation(props.language).sidebar.tasks}</span>
+              <span className='sidebar-icon-text'>Dashboard</span>
             </li>
           </Link>
           <li className={sidebarItem_darkLightMode} onMouseEnter={() => changeSidebarItemLayoutEnter(7)} onMouseLeave={() => changeSidebarItemLayoutLeave(7)} onClick={handleClickDarkModeButton} id='sidebar-darkmode-toggle'>

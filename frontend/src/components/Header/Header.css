@@ -156,7 +156,7 @@
   
     }
   
-    @media(max-width: 500px){
+    @media(max-width: 800px){
       .hide-800{
         display: none;
       }

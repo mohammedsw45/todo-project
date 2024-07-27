@@ -10,7 +10,7 @@
 }
 .home-container{
     /* background-color: rgba(33, 34, 42, 0.95);; */
-    padding: 0 10px;
+    /* padding: 0 10px; */
     border-right: 1px dashed black;
     border-left: 1px dashed black;
 
@@ -76,8 +76,8 @@
     color: #000;
 }
 .tasks{
-    height: 300px;
-    margin-top: 10px;
+    height: 600px;
+    /* margin-top: 10px; */
     /* background-color: rgb(216, 216, 216); */
     overflow-y: scroll;
 }
@@ -89,7 +89,8 @@
 }
 .task-title{
     color: #1b5e05;
-    margin-bottom: .5em;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 .task-status{
     position: absolute;
@@ -99,6 +100,8 @@
     font-weight: bold;
     right: 0px;
     top: 0px;
+
+    border-top-left-radius: 5px;
 }
 .todo{
     background-color: #1b5e05;
@@ -121,6 +124,47 @@
 }
 .width70percent{
     width: 65%;
+    margin-bottom: 10px;
+}
+.collapsible{
+    position: relative;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+    background-color: #707070;
+  }
+  
+  /* Style the collapsible content. Note: hidden by default */
+  .task-content {
+    /* display: none; */
+    padding: 0 18px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    padding-bottom: 2em;
+  }
+  /* .shown{
+    display: block;
+  } */
+.width70percent h2{
+    font-size: 16px;
+}
+.step-title{
+    margin-bottom: 6px;
+
+}
+.step-description{
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 8px;
+
 }
 .delete-icon{
     width: 22px;
@@ -184,7 +228,7 @@
     background-color: rgba(39, 39, 39, 0.589);
     transition: .4s;
 }
-.start-icon{
+.add-icon{
     width: 22px;
     height: 22px;
     position: absolute;
@@ -193,9 +237,8 @@
 
     cursor: pointer;
     transition: .3s;
-
 }
-.add-icon{
+.start-icon{
     width: 22px;
     height: 22px;
     position: absolute;

@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post(`${destination}/account/token/', { username, password });
+      const response = await axios.post(`${destination}/account/token/`, { username, password });
       setAuthTokens(response.data);
       const user = JSON.parse(atob(response.data.access.split('.')[1]));
       setUser(user);
@@ -30,14 +30,19 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const startTask = async (id) => {
+  const startTask = async (id,status) => {
     try{
+      var res = "";
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+      if(status == "To Do"){
+        res = "In Progress"
+      }
+      else if(status == "In Progress"){
+        res = "Done"
+      } 
       const response = await axios.patch(`${destination}/todo/tasks/${id}/update/`,
         {
-          "status": "In Progress",
-
-
+          "status": res,
         }, {
         headers: {
           'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
@@ -52,6 +57,30 @@ const AuthProvider = ({ children }) => {
           return { success: false, message: error.response.data.detail };
         }
       };
+
+
+      const editTask = async (id,title, desc) => {
+        try{
+          const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+ 
+          const response = await axios.patch(`${destination}/todo/tasks/${id}/update/`,
+            {
+              "title": title,
+              "body": desc
+            }, {
+            headers: {
+              'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
+            }
+          });
+           if (response && response.status === 200) 
+            {
+              return { success: true };
+            }
+            } catch (error) {
+              console.error('Task Start failed', error);
+              return { success: false, message: error.response.data.detail };
+            }
+          };
 
   const deleteTask = async (id) => {
     try{
@@ -116,6 +145,33 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+
+  function createStep(title, description , taskId)
+    {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+      console.log(accessToken);
+      const response = axios.post(
+        `${destination}/todo/tasks/${taskId}/add/`,
+        { 
+          "title": title,
+          "body": description,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}` 
+          }
+        }
+      );
+      window.location.reload();
+  
+    } catch (error) {
+      // Handle the error more gracefully
+      console.error('Error creating task:', error.message);
+      throw error;
+    }
+  };
+
   const register = async (firstName, lastName, email, password) => {
     console.log(`${destination}/account/register/`)
     try {
@@ -160,7 +216,7 @@ const AuthProvider = ({ children }) => {
   // useEffect for token refresh...
 
   return (
-    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask }}>
+    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask , createStep, editTask }}>
       {children}
     </AuthContext.Provider>
   );
