@@ -397,7 +397,7 @@ export default function Home(){
                         <button onClick={(event) => handleButtonClick(event.currentTarget)} className="collapsible">
                           <div className="button-contents">
                           <span className="task-title">{task.title}</span>
-                          <span style={{display: "inline-block", width: "fit-content", fontSize: "12px", color: "#fff", border: "1px solid black", marginLeft: "1em",textWrap: "nowrap",padding: ".3em",borderRadius: "12px", backgroundColor: "#463B3B"}}>
+                          <span className="task-hours">
                             {task.implementation_duration_hours+"  Hours"}
                           </span>
                           <div className={task.status === "To Do" ? "task-status todo" : task.status === "In Progress" ? "task-status inProgress": task.status === "Done" ? "task-status Done": "task-status Cancelled"}>{task.status}</div>
@@ -417,6 +417,9 @@ export default function Home(){
                           </button>
 
                         <div className="task task-content">
+                          <div className="padding-top-bottom-10">
+
+                          
                           <div className="task-section1">
                             <div className="width70percent">
                               <h2>{task.body === null ? "**" : task.body}</h2>
@@ -438,9 +441,9 @@ export default function Home(){
                             </ul>
                           </div>
                           <div className="task-section2">
-                          <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="delete-icon"/>         
+                          <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="icon"/>         
                               {task.status != "Done" ?
-                              <Popup position="right center" trigger= {<img src={addIcon} className="add-icon"/>} modal nested> 
+                              <Popup position="right center" trigger= {<img src={addIcon} className="icon"/>} modal nested> 
                                 <div className="popup">
                                   <div className="popup-content">
                                     <h2>Step Name:</h2>
@@ -467,7 +470,7 @@ export default function Home(){
 
                               {task.status != "Done" ?
                               <Popup position="right center" 
-                              trigger= {<img src={editIcon} className="edit-icon"/>}
+                              trigger= {<img src={editIcon} className="icon"/>}
                               onOpen={()=>{setTaskTitle(task.title);setTaskDescription(task.body)}}
                               modal
                               nested> 
@@ -497,10 +500,11 @@ export default function Home(){
               
                               
                               {task.status === "To Do" ? 
-                                 <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={startIcon} className="start-icon"/>:
-                                 task.status === "In Progress" ? <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={finishIcon} className="start-icon"/>  : <></>       
+                                 <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={startIcon} className="icon"/>:
+                                 task.status === "In Progress" ? <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={finishIcon} className="icon"/>  : <></>       
                                                           }
                               {/* <img src={addIcon} className="add-icon"/>          */}
+                          </div>
                           </div>
                             
                               
