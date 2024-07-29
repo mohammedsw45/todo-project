@@ -94,6 +94,7 @@
     font-weight: bold;
 }
 .task-owner{
+    margin-top: 12px;
     color: #1b2517;
     font-size: .8rem;
     font-weight: bold;
@@ -152,13 +153,32 @@
   
   /* Style the collapsible content. Note: hidden by default */
   .task-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     padding: 0 18px;
     overflow: hidden;
     transition: max-height 0.4s ease-in-out;
     background-color: #f1f1f1;
-    padding-bottom: 0;
+  }
+  .task-hours{
+    margin: auto 0;
+    width: fit-content;
+    font-size: 12px;
+    color: #fff; 
+    border: 1px solid black;
+    margin-left: 1em;
+    text-wrap: nowrap;
+    padding: .3em;
+    border-radius: 12px;
+    background-color: #463B3B;
+  }
+  .padding-top-bottom-10{
+    padding: 10px 0px;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+  }
+  .task-section2{
+    margin-top: 10px;
+    display: flex;
+    justify-content: end;
   }
   /* .shown{
     display: block;
@@ -224,31 +244,12 @@
     background-color: rgba(39, 39, 39, 0.589);
     transition: .4s;
 }
-.add-icon{
-    width: 22px;
-    height: 22px;
-
-    cursor: pointer;
-    transition: .3s;
-}
-.start-icon{
+.icon{
     width: 22px;
     height: 22px;
     cursor: pointer;
     transition: .3s;
-}
-.delete-icon{
-    width: 22px;
-    height: 22px;
-
-    cursor: pointer;
-    transition: .3s;
-}
-.edit-icon{
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-    transition: .3s;
+    margin-left: .5em;
 
 }
 /* width */
