@@ -11,6 +11,7 @@ import startIcon from '../../icons/play.png'
 import editIcon from '../../icons/editing.png'
 import addIcon from '../../icons/add.png'
 import finishIcon from '../../icons/finish.png'
+import startStepIcon from '../../icons/play_step.png'
 // import myData from '../../data.json';
 export default function Home(){
   const [tasks, setTasks] = useState([]);
@@ -281,7 +282,9 @@ export default function Home(){
       //     content.style.maxHeight = content.scrollHeight + "px";
       //   } 
       // }
+    function handleChangeStepStatus(id){
 
+    }
     // const ref = React.useRef();
     const handleButtonClick = (item) => {
         item.classList.toggle("active");
@@ -431,7 +434,7 @@ export default function Home(){
                               {task.steps.map((step, index) => (
                                 <li className="step-li" key={index}>
                                   <span className="step-title">
-                                    {step.title}
+                                    {<><img onClick={() => handleChangeStepStatus(task.id)} className="step-icon" src={startStepIcon}/><span>{step.title}</span></>}
                                   </span>
                                   <ul>
                                     <li className="step-description">{step.body}</li>
