@@ -83,11 +83,7 @@ export default function Home(){
 
 
     const [filteredtasks, setFilteredTasks] = useState([]);
-    useEffect(() => {
-        setFilteredTasks(tasks)
-        }, [])
-    
-    
+     
         // useEffect(() => {
         //   console.log("HHH")
         //   var coll = document.getElementsByClassName("collapsible");
@@ -130,9 +126,10 @@ export default function Home(){
     }
 
     const handleStatusChange = (e, newStatus) =>{
-      if (newStatus === "All") {
+      if (newStatus == "All") {
         setTaskStatus(newStatus);
         setFilteredTasks(tasks);
+        console.log(tasks)
       } else if (newStatus !== null) {
         setTaskStatus(newStatus);
         const filter = tasks.filter((task) => task.status.includes(newStatus));
@@ -212,6 +209,16 @@ export default function Home(){
         }
       }
 
+      const dateTimeFormatter = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+
+      });
+
       function handleAddStep(id) {
         console.log("hhh")
         if (stepTitle.length > 0 && stepDescription.length > 0) {
@@ -240,28 +247,74 @@ export default function Home(){
           const allTasks = await getAllTasks();
           console.log('allTasks', allTasks === null)
           setTasks(allTasks);
+          setFilteredTasks(allTasks);
+
         };
         fetchTasks();
+
+       
       }, []);
 
+      // useEffect(() => {
+      //   setFilteredTasks(tasks);
+      //     }, [])
 
+      // function handleClickClosure(i) {
+      //   return function(event) {
+      //     handleClick(i, event);
+      //   };
+      // }
+      
+      // function handleClick(i, event) {
+      //   var coll = document.getElementsByClassName("collapsible");
+      //   console.log(coll)
+      //   console.log(i)
+      //   coll[i].classList.toggle("active");
+      //   var content = coll[i].nextElementSibling;
+        
+      //   console.log(content.style.maxHeight)
+      
+      //   if(content.style.maxHeight != null)
+      //   if (parseFloat(content.style.maxHeight) > 0){
+      //     content.style.maxHeight = 0;
+      //   } else {
+      //     content.style.maxHeight = content.scrollHeight + "px";
+      //   } 
+      // }
+
+    // const ref = React.useRef();
+    const handleButtonClick = (item) => {
+        item.classList.toggle("active");
+        var content = item.nextElementSibling;
+
+        // if(content.style.height < 40)
+        //   content.style.minHeight = 60+"px";
+              
+        if(content.style.maxHeight != null)
+        if (parseFloat(content.style.maxHeight) > 0){
+          content.style.maxHeight = 0;
+        } else {
+          content.style.maxHeight = "1000px";
+        } 
+
+        // return {
+        //   console.log("Removed!")
+        // }
+      //}
+    }
 
     useEffect(() => {
       var coll = document.getElementsByClassName("collapsible");
-      var i;
 
-      for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-          this.classList.toggle("active");
-          var content = this.nextElementSibling;
-          if (content.style.maxHeight){
-            content.style.maxHeight = null;
-          } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-          } 
-        })}
+      for (var i = 0; i < coll.length; i++) {
+        var content = coll[i].nextElementSibling;
+        content.style.maxHeight = 0;  
+      }
       
-      }, [tasks]);
+      
+      }
+      
+      , [filteredtasks]);
 
 
     return(
@@ -319,13 +372,13 @@ export default function Home(){
                     onChange={handleStatusChange}
                   >
                     <ToggleButton value="All">
-                        <span>All ({tasks.length})</span>
+                        <span>All {tasks == null || tasks == [] ? (0) : '('+(tasks.length)+')'}</span>
                     </ToggleButton>
                     <ToggleButton value="To Do">
-                        <span>To Do ({tasks.filter(task => task.status.includes('To Do')).length})</span>
+                        <span>To Do ({tasks == null || tasks == [] ? (0) : tasks.filter(task => task.status.includes('To Do')).length})</span>
                     </ToggleButton>
                     <ToggleButton value="In Progress">
-                        <span>In Progress ({tasks.filter(task => task.status.includes('In Progress')).length})</span>
+                        <span>In Progress ({tasks == null || tasks == [] ? (0) : tasks.filter(task => task.status.includes('In Progress')).length})</span>
                     </ToggleButton>
                     <ToggleButton value="Done">
                         <span>Done ({tasks.filter(task => task.status.includes('Done')).length})</span>
@@ -341,24 +394,39 @@ export default function Home(){
                     filteredtasks.map((task,index) => {
                         return (
                         <>
-                        <button onClick={changeActiveStatus} className="collapsible">
+                        <button onClick={(event) => handleButtonClick(event.currentTarget)} className="collapsible">
+                          <div className="button-contents">
                           <span className="task-title">{task.title}</span>
                           <span style={{display: "inline-block", width: "fit-content", fontSize: "12px", color: "#fff", border: "1px solid black", marginLeft: "1em",textWrap: "nowrap",padding: ".3em",borderRadius: "12px", backgroundColor: "#463B3B"}}>
                             {task.implementation_duration_hours+"  Hours"}
                           </span>
                           <div className={task.status === "To Do" ? "task-status todo" : task.status === "In Progress" ? "task-status inProgress": task.status === "Done" ? "task-status Done": "task-status Cancelled"}>{task.status}</div>
-
+                          <h4 className="task-owner">
+                                {task.owner.first_name} {task.owner.last_name}
+                          </h4>
+                          {
+                          task.begin_time == null ? <></> :
+                           <h6 className="task-began-at">started at: {dateTimeFormatter.format((Date.parse(task.begin_time)))}</h6>
+                          }
+                          {
+                          task.end_time == null ? <></> :
+                           <h6 className="task-ended-at">ended at: {dateTimeFormatter.format((Date.parse(task.end_time)))}</h6>
+                          }
+                          </div>
+                            
                           </button>
 
                         <div className="task task-content">
-                            <h2 className="task-title width70percent">{task.title === null ? "**" : <></>}</h2>
+                          <div className="task-section1">
                             <div className="width70percent">
                               <h2>{task.body === null ? "**" : task.body}</h2>
+                              <h2 className="task-title width70percent">{task.title === null ? "**" : <></>}</h2>
+
                               {/* <span>{task.implementation_duration_hours === null ? "**" : task.implementation_duration_hours}</span> */}
-                            </div>
+                            </div>  
                             <ul className="unordered-list content width70percent">
                               {task.steps.map((step, index) => (
-                                <li key={index}>
+                                <li className="step-li" key={index}>
                                   <span className="step-title">
                                     {step.title}
                                   </span>
@@ -368,7 +436,10 @@ export default function Home(){
                                 </li>
                               ))}
                             </ul>
-                              <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="delete-icon"/>         
+                          </div>
+                          <div className="task-section2">
+                          <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="delete-icon"/>         
+                              {task.status != "Done" ?
                               <Popup position="right center" trigger= {<img src={addIcon} className="add-icon"/>} modal nested> 
                                 <div className="popup">
                                   <div className="popup-content">
@@ -392,7 +463,9 @@ export default function Home(){
                                   <button onClick={()=>handleAddStep(task.id)}>Submit</button>
                                 </div>
                               </Popup>
+                              :<></>}
 
+                              {task.status != "Done" ?
                               <Popup position="right center" 
                               trigger= {<img src={editIcon} className="edit-icon"/>}
                               onOpen={()=>{setTaskTitle(task.title);setTaskDescription(task.body)}}
@@ -420,6 +493,7 @@ export default function Home(){
                                   <button onClick={()=>handleEditTask(task.id)}>Submit</button>
                                 </div>
                               </Popup>
+                              : <></>}
               
                               
                               {task.status === "To Do" ? 
@@ -427,6 +501,9 @@ export default function Home(){
                                  task.status === "In Progress" ? <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={finishIcon} className="start-icon"/>  : <></>       
                                                           }
                               {/* <img src={addIcon} className="add-icon"/>          */}
+                          </div>
+                            
+                              
                         </div>
                         </>  
                         

@@ -76,6 +76,7 @@
     color: #000;
 }
 .tasks{
+    width: 650px;
     height: 600px;
     /* margin-top: 10px; */
     /* background-color: rgb(216, 216, 216); */
@@ -91,6 +92,14 @@
     color: #1b5e05;
     font-size: 1.5rem;
     font-weight: bold;
+}
+.task-owner{
+    color: #1b2517;
+    font-size: .8rem;
+    font-weight: bold;
+}
+.task-began-at, .task-ended-at{
+    color: #000000;
 }
 .task-status{
     position: absolute;
@@ -143,12 +152,13 @@
   
   /* Style the collapsible content. Note: hidden by default */
   .task-content {
-    /* display: none; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding: 0 18px;
     overflow: hidden;
-    transition: max-height 0.2s ease-out;
+    transition: max-height 0.4s ease-in-out;
     background-color: #f1f1f1;
-    padding-bottom: 2em;
+    padding-bottom: 0;
   }
   /* .shown{
     display: block;
@@ -156,37 +166,23 @@
 .width70percent h2{
     font-size: 16px;
 }
+.step-li{
+    list-style-type: none;
+}
 .step-title{
+    font-weight: bold;
     margin-bottom: 6px;
+    list-style-type: none;
+
 
 }
 .step-description{
-    list-style-type: disc;
+    list-style-type: none;
     padding-left: 20px;
     margin-bottom: 8px;
 
 }
-.delete-icon{
-    width: 22px;
-    height: 22px;
-    position: absolute;
-    right: 10px;
-    top: 40px;
 
-    cursor: pointer;
-    transition: .3s;
-}
-.edit-icon{
-    width: 22px;
-    height: 22px;
-    position: absolute;
-    right: 35px;
-    top: 40px;
-
-    cursor: pointer;
-    transition: .3s;
-
-}
 .popup{
     height: 300px;
     width: 500px;
@@ -231,9 +227,6 @@
 .add-icon{
     width: 22px;
     height: 22px;
-    position: absolute;
-    right: 63px;
-    top: 42px;
 
     cursor: pointer;
     transition: .3s;
@@ -241,12 +234,22 @@
 .start-icon{
     width: 22px;
     height: 22px;
-    position: absolute;
-    right: 88px;
-    top: 42px;
+    cursor: pointer;
+    transition: .3s;
+}
+.delete-icon{
+    width: 22px;
+    height: 22px;
 
     cursor: pointer;
     transition: .3s;
+}
+.edit-icon{
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    transition: .3s;
+
 }
 /* width */
 ::-webkit-scrollbar {
@@ -279,9 +282,13 @@
     .buttons{
         font-size: .9rem;
     }
+    .tasks{
+        width: 350px;
+    }
 }
 @media(max-width: 500px){
     .buttons{
         font-size: .8rem;
     }
+    
 }
