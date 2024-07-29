@@ -33,7 +33,7 @@ const NewUser = () => {
           }
         }
       );
-      console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+      console.log("uuuuuuuuuu");
 
     } catch (error) {
       console.error('Error creating user:', error.message);

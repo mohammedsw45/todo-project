@@ -84,7 +84,12 @@ const Tasks = () => {
                   <td>{task.status}</td>
                   <td>{task.begin_time === null ? "-" : dateTimeFormatter.format((Date.parse(task.begin_time)))}</td>
                   <td>{task.end_time === null ? "-" : dateTimeFormatter.format((Date.parse(task.end_time)))}</td>
-                  <td> <button>Details</button> </td>
+
+
+                  <td> <Link to={`/dashboard/task/details/${task.id}`}> <button>Details</button> 
+                    </Link>
+                    </td>
+                    
                 </tr>
               )) : 
               <tr>

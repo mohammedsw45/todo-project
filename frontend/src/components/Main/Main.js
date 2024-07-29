@@ -13,6 +13,7 @@ import NewTask from '../../Dashborad/Components/NewTask/NewTask';
 import NewUser from '../../Dashborad/Components/NewUser/NewUser';
 import Forget from '../../pages/forget-password/Forget';
 import Reset from './../../pages/reset-password/Reset'; 
+import TaskDetails from '../../Dashborad/Components/Detailstasks/TaskDetails';
 import EditProfile from '../../Dashborad/Components/EditProfile/EditProfile';
 
 function Main(props) {
@@ -29,6 +30,7 @@ function Main(props) {
               <Route path="users" element={<Users />} />
               <Route path="create-new-task" element={<NewTask />} />
               <Route path="create-new-user" element={<NewUser />} />
+              <Route path="task/details/:id" element={<TaskDetails />} />
               <Route path="edit-profile/:id" element={<EditProfile />} />
             </Route>
             <Route path="/" element={<Home />} />
