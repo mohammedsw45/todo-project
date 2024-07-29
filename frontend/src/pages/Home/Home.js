@@ -383,9 +383,6 @@ export default function Home(){
                     <ToggleButton value="Done">
                         <span>Done ({tasks.filter(task => task.status.includes('Done')).length})</span>
                     </ToggleButton>
-                    {/* <input type="search" id="gsearch1" name="gsearch" placeholder='Search...' onInput={handleChange} /> */}
-
-                    {/* <input type="search" id="gsearch" name="gsearch" placeholder='Search...' onInput={handleChange} /> */}
 
                 </ToggleButtonGroup>
 
