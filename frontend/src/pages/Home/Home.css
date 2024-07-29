@@ -250,7 +250,13 @@
     cursor: pointer;
     transition: .3s;
     margin-left: .5em;
-
+}
+.step-icon{
+    margin-top: 8px;;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: .3s;
 }
 /* width */
 ::-webkit-scrollbar {
