@@ -88,7 +88,7 @@ def update_task(request, pk=None):
             return Response({"detail": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
 
         # Check if the requester is either the owner of the task or an admin
-        if not (request.user == task_instance.owner or request.user.is_staff):
+        if (request.user == task_instance.viewers):
             return Response({"Error": "You do not have permission to access this task."}, status=status.HTTP_403_FORBIDDEN)
 
         # Allow admins to update viewers field, while preventing owner from doing so
