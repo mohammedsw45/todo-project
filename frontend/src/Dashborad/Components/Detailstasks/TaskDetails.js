@@ -40,7 +40,7 @@ export default function TaskDetails(){
 
     return (
             <>
-            <div className="Header">
+            <div className="privteHeader">
 
                 <h1>Viewers</h1>
 
@@ -53,7 +53,6 @@ export default function TaskDetails(){
                       )
                   }
                 </ul>
-                
             </div>
              
             </>

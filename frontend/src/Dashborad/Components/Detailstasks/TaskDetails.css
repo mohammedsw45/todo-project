@@ -1,20 +1,27 @@
 .taskviewers-content{
     background: url('/src/icons/R.jpg') no-repeat center center fixed;
 
-
-
 }
 .taskDetail-content{
     height: 100vh;
     justify-content: center;
     align-items: center;
-    /* color:rgb(244, 227, 227); */
     background-size: cover;
     list-style-type:decimal;
-    margin-left: 2em;
+    margin-left: 1.25em;
+    margin-top:4.5px;
     color:rgb(254, 251, 251);
     font-size: 1.5rem;
     
 }
 
+.privteHeader{
+    color: rgb(186, 157, 157);
+    padding:15px; 
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5),
+    0 5px 10px rgba(0, 0, 0, 0.3);  /* ظل ثانوي */
+    background: url('/src/icons/R.jpg') no-repeat center center fixed;
+   
+}
 
