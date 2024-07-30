@@ -12,6 +12,8 @@ import editIcon from '../../icons/editing.png'
 import addIcon from '../../icons/add.png'
 import finishIcon from '../../icons/finish.png'
 import startStepIcon from '../../icons/play_step.png'
+import processingStepIcon from '../../icons/hourglass.png'
+import endedStepIcon from '../../icons/accept.png'
 // import myData from '../../data.json';
 export default function Home(){
   const [tasks, setTasks] = useState([]);
@@ -77,6 +79,7 @@ export default function Home(){
     const { startTask } = useContext(AuthContext);
     const { createStep } = useContext(AuthContext);
     const { editTask } = useContext(AuthContext);
+    const { startTaskStep } = useContext(AuthContext)
 
 
 
@@ -282,8 +285,20 @@ export default function Home(){
       //     content.style.maxHeight = content.scrollHeight + "px";
       //   } 
       // }
-    function handleChangeStepStatus(id){
-
+    function handleChangeStepStatus(task_id, task_step_id, taskStepState){
+      console.log(task_id + " "+ task_step_id + " " + taskStepState)
+      const _startTaskStep = async () => {
+        try {
+          const res = await startTaskStep(task_id,task_step_id,taskStepState);
+          // Clear the input fields or update the UI as needed
+          // Optionally, you can reload the page to see the updated tasks
+          // window.location.reload();
+        } catch (error) {
+          console.error('Error updating task step:', error.message);
+          // Handle the error, e.g., display an error message to the user
+        }
+      };
+      _startTaskStep();
     }
     // const ref = React.useRef();
     const handleButtonClick = (item) => {
@@ -396,10 +411,14 @@ export default function Home(){
                         <>
                         <button onClick={(event) => handleButtonClick(event.currentTarget)} className="collapsible">
                           <div className="button-contents">
+                            
                           <span className="task-title">{task.title}</span>
                           <span className="task-hours">
                             {task.implementation_duration_hours+"  Hours"}
                           </span>
+                          <p>
+                            <progress animated variant="success" value={task.status == "Done" ? 1 : task.steps.length != 0 ? ((task.steps.filter((step) => step.status === "Finished").length / task.steps.length)).toFixed(2) : 0} style={{height: "5px"}}/>
+                          </p>
                           <div className={task.status === "To Do" ? "task-status todo" : task.status === "In Progress" ? "task-status inProgress": task.status === "Done" ? "task-status Done": "task-status Cancelled"}>{task.status}</div>
                           <h4 className="task-owner">
                                 {task.owner.first_name} {task.owner.last_name}
@@ -417,6 +436,7 @@ export default function Home(){
                           </button>
 
                         <div className="task task-content">
+                          
                           <div className="padding-top-bottom-10">
 
                           
@@ -424,6 +444,13 @@ export default function Home(){
                             <div className="width70percent">
                               <h2>{task.body === null ? "**" : task.body}</h2>
                               <h2 className="task-title width70percent">{task.title === null ? "**" : <></>}</h2>
+                              
+                              
+
+                              
+                                {/* <ProgressBar now={60} />; */}
+                               {/* <p>Progress: {task.steps.length != 0 ? ((task.steps.filter((step) => step.status === "Finished").length / task.steps.length) * 100).toFixed(2) : 0}%</p> */}
+                              
 
                               {/* <span>{task.implementation_duration_hours === null ? "**" : task.implementation_duration_hours}</span> */}
                             </div>  
@@ -431,7 +458,7 @@ export default function Home(){
                               {task.steps.map((step, index) => (
                                 <li className="step-li" key={index}>
                                   <span className="step-title">
-                                    {<><img onClick={() => handleChangeStepStatus(task.id)} className="step-icon" src={startStepIcon}/><span>{step.title}</span></>}
+                                    {<><img onClick={() => handleChangeStepStatus(task.id,step.id,step.status)} className="step-icon" src={step.status=="To Do" ? startStepIcon : step.status=="Started" ? finishIcon : endedStepIcon}/><span>{step.title}</span></>}
                                   </span>
                                   <ul>
                                     <li className="step-description">{step.body}</li>
@@ -439,6 +466,7 @@ export default function Home(){
                                 </li>
                               ))}
                             </ul>
+                            
                           </div>
                           <div className="task-section2">
                           <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="icon"/>         

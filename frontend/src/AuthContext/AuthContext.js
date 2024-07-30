@@ -58,6 +58,35 @@ const AuthProvider = ({ children }) => {
         }
       };
 
+      const startTaskStep = async (task_id,step_id,status) => {
+        try{
+          var res = "";
+          const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+          if(status == "To Do"){
+            res = "Started"
+          }
+          else if(status == "Started"){
+            res = "Finished"
+          } 
+          else return;
+          const response = await axios.patch(`${destination}/todo/tasks/${task_id}/update/${step_id}/`,
+            {
+              "status": res,
+            }, {
+            headers: {
+              'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
+            }
+          });
+           if (response && response.status === 200) 
+            {
+              return { success: true };
+            }
+            } catch (error) {
+              console.error('Step ChangeStatus failed', error);
+              return { success: false, message: error.response.data.detail };
+            }
+          };
+
 
       const editTask = async (id,title, desc) => {
         try{
@@ -216,7 +245,7 @@ const AuthProvider = ({ children }) => {
   // useEffect for token refresh...
 
   return (
-    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask , createStep, editTask }}>
+    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask , createStep, editTask, startTaskStep }}>
       {children}
     </AuthContext.Provider>
   );
