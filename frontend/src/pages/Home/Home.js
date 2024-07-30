@@ -292,7 +292,7 @@ export default function Home(){
           const res = await startTaskStep(task_id,task_step_id,taskStepState);
           // Clear the input fields or update the UI as needed
           // Optionally, you can reload the page to see the updated tasks
-          // window.location.reload();
+          window.location.reload();
         } catch (error) {
           console.error('Error updating task step:', error.message);
           // Handle the error, e.g., display an error message to the user

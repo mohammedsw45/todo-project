@@ -69,7 +69,7 @@ const AuthProvider = ({ children }) => {
             res = "Finished"
           } 
           else return;
-          const response = await axios.patch(`${destination}/todo/tasks/${task_id}/update/${step_id}/`,
+          const response = await axios.put(`${destination}/todo/tasks/${task_id}/update/${step_id}/`,
             {
               "status": res,
             }, {
