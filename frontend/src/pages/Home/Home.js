@@ -411,7 +411,6 @@ export default function Home(){
                         <>
                         <button onClick={(event) => handleButtonClick(event.currentTarget)} className="collapsible">
                           <div className="button-contents">
-                            
                           <span className="task-title">{task.title}</span>
                           <span className="task-hours">
                             {task.implementation_duration_hours+"  Hours"}
