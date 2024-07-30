@@ -258,6 +258,10 @@
     cursor: pointer;
     transition: .3s;
 }
+.star
+{
+    width: 20px;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 1px;

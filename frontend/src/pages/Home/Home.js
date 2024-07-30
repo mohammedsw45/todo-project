@@ -14,6 +14,7 @@ import finishIcon from '../../icons/finish.png'
 import startStepIcon from '../../icons/play_step.png'
 import processingStepIcon from '../../icons/hourglass.png'
 import endedStepIcon from '../../icons/accept.png'
+import star from '../../icons/star.png'
 // import myData from '../../data.json';
 export default function Home(){
   const [tasks, setTasks] = useState([]);
@@ -411,7 +412,9 @@ export default function Home(){
                         <>
                         <button onClick={(event) => handleButtonClick(event.currentTarget)} className="collapsible">
                           <div className="button-contents">
-                          <span className="task-title">{task.title}</span>
+                          
+                          <span  className=" task-title">{task.title}</span>
+                          <img src={star} className="star" alt="jhyjy"/>
                           <span className="task-hours">
                             {task.implementation_duration_hours+"  Hours"}
                           </span>
