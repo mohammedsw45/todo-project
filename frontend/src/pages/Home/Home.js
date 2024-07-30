@@ -383,7 +383,7 @@ export default function Home(){
             </div>
             <div>
 
-                <ToggleButtonGroup 
+            <ToggleButtonGroup 
                     className="buttons"
                     value={taskStatus}
                     exclusive
@@ -399,7 +399,7 @@ export default function Home(){
                         <span>In Progress ({tasks == null || tasks == [] ? (0) : tasks.filter(task => task.status.includes('In Progress')).length})</span>
                     </ToggleButton>
                     <ToggleButton value="Done">
-                        <span>Done ({tasks.filter(task => task.status.includes('Done')).length})</span>
+                        <span>Done ({tasks == null || tasks == [] ? (0) : tasks.filter(task => task.status.includes('Done')).length})</span>
                     </ToggleButton>
 
                 </ToggleButtonGroup>
