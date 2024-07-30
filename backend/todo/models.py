@@ -26,9 +26,9 @@ class Task(models.Model):
 
     def save(self, *args, **kwargs):
         if self.status == 'In Progress' and not self.begin_time:
-            self.begin_time = self.updated_at
+            self.begin_time = timezone.now()
         elif self.status in ['Done', 'Cancelled'] and not self.end_time:
-            self.end_time = self.updated_at
+            self.end_time = timezone.now()
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -59,11 +59,6 @@ class Step(models.Model):
         elif self.status == 'Finished' and not self.end_time:
             self.end_time = timezone.now()
         super().save(*args, **kwargs)
-
-    def clean(self):
-        super().clean()
-        if self.start_time and self.end_time and self.end_time < self.start_time:
-            raise ValidationError("End time cannot be before start time.")
     def __str__(self):
         return self.title + " from "+ self.task.title
     

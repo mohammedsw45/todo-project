@@ -34,9 +34,13 @@ def register(request):
                 username = data['email'],
                 password = make_password(data['password'])
             )
-            refresh = RefreshToken.for_user(user_obj)
+            profile = get_object_or_404(Profile, user=user_obj)
+            serializer = ProfileSerializer(profile, many=False)
+           
             return Response({
-                "result": "The user is registered sucessfully"
+                "result": "The user is registered sucessfully",
+                'profile': serializer.data,
+
             }, status=status.HTTP_201_CREATED)
         else:
             return Response({
