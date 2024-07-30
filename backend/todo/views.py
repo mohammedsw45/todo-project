@@ -199,6 +199,23 @@ def update_step(request, task_pk, step_pk):
         step = get_object_or_404(Step, id=step_pk, task=task)
         
         data = request.data
+        if "status" in data:
+            if step.status=="To Do":
+                if data["status"]=="Finished":
+                    return Response({"Error": "You should Start this step before"}, status=status.HTTP_400_BAD_REQUEST)
+            if step.status=="Started":
+                if data["status"] == "To Do":
+                    return Response({"Error": "You can not return to To Do"}, status=status.HTTP_400_BAD_REQUEST)
+                elif data["status"] == "Started":
+                    return Response({"Error": "This step is already Started"}, status=status.HTTP_400_BAD_REQUEST)
+                
+            if step.status=="Finished":
+                if data["status"] == "To Do":
+                    return Response({"Error": "You can not return to To Do"}, status=status.HTTP_400_BAD_REQUEST)
+                elif data["status"] in ["Started", "Finished"]:
+                    return Response({"Error": "This step is already Finished"}, status=status.HTTP_400_BAD_REQUEST)
+
+
         step_serializer = StepSerializer(step, data=data, partial=True)
         
         if step_serializer.is_valid():

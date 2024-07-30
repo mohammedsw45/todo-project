@@ -18,8 +18,23 @@ class StepSerializer(serializers.ModelSerializer):
         fields = ['id', 'task', 'title', 'body', 'start_time', 'end_time', 'status']
         read_only_fields = ['start_time', 'end_time']
 
+    # def validate(self, attrs):
+    #     status = attrs.get('status')
+    #     start_time = attrs.get('start_time')
+    #     end_time = attrs.get('end_time')
+
+    #     if status == "Finished":
+    #         if not start_time:
+    #             print(status, "start_time: ", start_time)
+    #             print(status, "end_time: ", end_time)
+    #             raise serializers.ValidationError("You must set Started before Finished.")
+    #         if end_time:
+    #             raise serializers.ValidationError("You have already finished this step.")
+        
+        # return attrs
 
     def create(self, validated_data):
+        # Ensure that the save method in the model handles time correctly
         return Step.objects.create(**validated_data)
 
     # def update(self, instance, validated_data):
