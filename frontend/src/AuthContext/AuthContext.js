@@ -146,6 +146,20 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  const getTaskById = async (id) => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+      const response = await axios.get(`${destination}/todo/tasks/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
+        }
+      });
+      return response.data;
+    }catch (error){
+      console.error(error.message)
+    }
+  }
+
   function createTask(title, description , time)
     {
     try {
@@ -245,7 +259,7 @@ const AuthProvider = ({ children }) => {
   // useEffect for token refresh...
 
   return (
-    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask , createStep, editTask, startTaskStep }}>
+    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask , createStep, editTask, startTaskStep , getTaskById}}>
       {children}
     </AuthContext.Provider>
   );

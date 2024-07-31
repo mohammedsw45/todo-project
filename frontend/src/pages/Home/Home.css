@@ -81,6 +81,7 @@
     /* margin-top: 10px; */
     /* background-color: rgb(216, 216, 216); */
     overflow-y: scroll;
+
 }
 .task{
     position: relative;
@@ -263,6 +264,27 @@
     margin-left: 10px;
     width: 20px;
 }
+
+.Archive{
+    margin-top: 20px;
+    display:inline-block;
+    position: absolute ;
+    right:0px;
+    top: 10px;
+
+}
+.button-contents{
+    position: relative;
+    
+}
+.btns{
+    /* background-color: #1b5e05;
+    color: #C7C7C7;
+    box-shadow: #000000;*/
+    width: 22px; 
+    height: 22px;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 1px;
@@ -282,6 +304,7 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #C7C7C7; 
   }
+
 @media(max-width: 700px){
     .task-controller{
         grid-template-columns: 1fr;

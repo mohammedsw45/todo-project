@@ -12,14 +12,14 @@ import editIcon from '../../icons/editing.png'
 import addIcon from '../../icons/add.png'
 import finishIcon from '../../icons/finish.png'
 import startStepIcon from '../../icons/play_step.png'
+import archive from '../../icons/archive.png'
 // import processingStepIcon from '../../icons/hourglass.png'
 import endedStepIcon from '../../icons/accept.png'
 import TaskStar from '../../icons/star.png'
 // import myData from '../../data.json';
 export default function Home(){
-  const [tasks, setTasks] = useState([]);
-
-    const { user } =  useContext(AuthContext);
+   const [tasks, setTasks] = useState([]);
+   const { user } =  useContext(AuthContext);
     const [error, setError] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -80,7 +80,8 @@ export default function Home(){
     const { startTask } = useContext(AuthContext);
     const { createStep } = useContext(AuthContext);
     const { editTask } = useContext(AuthContext);
-    const { startTaskStep } = useContext(AuthContext)
+    const { startTaskStep } = useContext(AuthContext);
+    const { getTaskById } = useContext(AuthContext);
 
 
 
@@ -146,6 +147,21 @@ export default function Home(){
       setSelectedTaskId(id);
       setShowDialog(true);
     }
+    const handleGetTaskById = (id) => {
+      const _getTask = async () => {
+        try {
+          const res = await getTaskById(id);
+          // Clear the input fields or update the UI as needed
+          // Optionally, you can reload the page to see the updated tasks
+          console.log(res)
+          // window.location.reload();
+        } catch (error) {
+          console.error('Error getting task by id:', error.message);
+          // Handle the error, e.g., display an error message to the user
+        }
+      };
+      _getTask();
+    };
 
     const DeleteTask = async() => {
         try {
@@ -414,6 +430,7 @@ export default function Home(){
                         <>
                         <button onClick={(event) => handleButtonClick(event.currentTarget)} className="collapsible">
                           <div className="button-contents">
+                           
                           
                           <span  className=" task-title">{task.title}</span>
                           {task.owner.id != user.user_id ? <img src={TaskStar} className="star" alt="star"/> : <></>}
@@ -421,12 +438,16 @@ export default function Home(){
                             {task.implementation_duration_hours+"  Hours"}
                           </span>
                           <p>
+                        
                             <progress animated variant="success" value={task.status == "Done" ? 1 : task.steps.length != 0 ? ((task.steps.filter((step) => step.status === "Finished").length / task.steps.length)).toFixed(2) : 0} style={{height: "5px"}}/>
                           </p>
-                          <div className={task.status === "To Do" ? "task-status todo" : task.status === "In Progress" ? "task-status inProgress": task.status === "Done" ? "task-status Done": "task-status Cancelled"}>{task.status}</div>
+                          <div className={task.status === "To Do" ? "task-status todo" : task.status === "In Progress" ? "task-status inProgress": task.status === "Done" ? "task-status Done": "task-status Cancelled"}>{task.status}
+                          </div>
                           <h4 className="task-owner">
                                 {task.owner.first_name} {task.owner.last_name}
+
                           </h4>
+                         
                           {
                           task.begin_time == null ? <></> :
                            <h6 className="task-began-at">started at: {dateTimeFormatter.format((Date.parse(task.begin_time)))}</h6>
@@ -473,6 +494,8 @@ export default function Home(){
                             
                           </div>
                           <div className="task-section2">
+                          <img onClick={() => handleGetTaskById(task.id)} src={archive} className="icon"/>  
+
                           <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="icon"/>         
                               {task.status != "Done" ?
                               <Popup position="right center" trigger= {<img src={addIcon} className="icon"/>} modal nested> 
