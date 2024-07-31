@@ -77,10 +77,8 @@ const AuthProvider = ({ children }) => {
               'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
             }
           });
-           if (response && response.status === 200) 
-            {
-              return { success: true };
-            }
+          return response.data;
+            
             } catch (error) {
               console.error('Step ChangeStatus failed', error);
               return { success: false, message: error.response.data.detail };
@@ -160,12 +158,12 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  function createTask(title, description , time)
+  const createTask = async(title, description , time) =>
     {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
       console.log(accessToken);
-      const response = axios.post(
+      const response = await axios.post(
         `${destination}/todo/tasks/create/`,
         { 
           "title": title,
@@ -179,7 +177,9 @@ const AuthProvider = ({ children }) => {
           }
         }
       );
-      window.location.reload();
+
+      return response.data;
+      // window.location.reload();
   
     } catch (error) {
       // Handle the error more gracefully
@@ -189,12 +189,12 @@ const AuthProvider = ({ children }) => {
   };
 
 
-  function createStep(title, description , taskId)
+  const createStep = async(title, description , taskId)=>
     {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      console.log(accessToken);
-      const response = axios.post(
+      // console.log(accessToken);
+      const response = await axios.post(
         `${destination}/todo/tasks/${taskId}/add/`,
         { 
           "title": title,
@@ -206,11 +206,13 @@ const AuthProvider = ({ children }) => {
           }
         }
       );
-      window.location.reload();
+      // window.location.reload();
+      console.log(response.data)
+      return response.data;
   
     } catch (error) {
       // Handle the error more gracefully
-      console.error('Error creating task:', error.message);
+      console.error('Error creating step:', error.message);
       throw error;
     }
   };

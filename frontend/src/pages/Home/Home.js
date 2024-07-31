@@ -4,6 +4,7 @@ import Popup from 'reactjs-popup';
 import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import './Home.css'
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { jsPDF } from 'jspdf';
 
 
 import deleteIcon from '../../icons/delete.png'
@@ -119,23 +120,12 @@ export default function Home(){
       //     }
       // }}, [])
 
-      
-      const changeActiveStatus = () =>{
-        
-      }
-
-    const handleChange = (e) =>{
-        const filter = tasks.filter(
-        task => task.title.includes(e.target.value)
-        )
-        setFilteredTasks(filter);
-    }
-
+     
     const handleStatusChange = (e, newStatus) =>{
       if (newStatus == "All") {
         setTaskStatus(newStatus);
         setFilteredTasks(tasks);
-        console.log(tasks)
+        // console.log(tasks)
       } else if (newStatus !== null) {
         setTaskStatus(newStatus);
         const filter = tasks.filter((task) => task.status.includes(newStatus));
@@ -147,30 +137,30 @@ export default function Home(){
       setSelectedTaskId(id);
       setShowDialog(true);
     }
-    const handleGetTaskById = (id) => {
-      const _getTask = async () => {
+    const handleGetTaskById = async (id) => {
         try {
           const res = await getTaskById(id);
           // Clear the input fields or update the UI as needed
           // Optionally, you can reload the page to see the updated tasks
-          console.log(res)
+          console.log("res" , res)
+          return res.data;
           // window.location.reload();
         } catch (error) {
           console.error('Error getting task by id:', error.message);
           // Handle the error, e.g., display an error message to the user
-        }
+        
       };
-      _getTask();
     };
 
     const DeleteTask = async() => {
         try {
           const res = await deleteTask(selectedTaskId);
           // Clear the input fields or update the UI as needed
-          setTasks(filteredtasks.filter((task) => task.id !== selectedTaskId));
+          setTasks(tasks.filter((task) => task.id !== selectedTaskId));
+          setFilteredTasks(filteredtasks.filter((task) => task.id !== selectedTaskId))
           setShowDialog(false);
           // Optionally, you can reload the page to see the updated tasks
-          window.location.reload();
+          // window.location.reload();
           
         } catch (error) {
           console.error('Error deleting task:', error.message);
@@ -182,20 +172,49 @@ export default function Home(){
       setShowDialog(false);
     };
     const handleChangeTaskStatus = (id,taskState) => {
+        var res1 = "";
+
+        if(taskState == "To Do"){
+          res1 = "In Progress"
+        }
+        else if(taskState == "In Progress"){
+          res1 = "Done"
+        } 
+        else {
+          console.log("No change")
+          return;
+        }
         const _startTask = async () => {
             try {
-              const res = await startTask(id,taskState);
+              const res = await startTask(id,taskState); 
               // Clear the input fields or update the UI as needed
               // Optionally, you can reload the page to see the updated tasks
-              window.location.reload();
+              // Update the local state with the new status
+              const updatedTasks = tasks.map((task) =>(
+                task.id == id ? { ...task, status: res1, } : task
+              )
+              );
+              const updatedFilteredTasks = filteredtasks.map((task) =>(
+                task.id == id ? { ...task, status: res1, } : task
+              )
+              );
+
+              // Update the tasks state
+              setTasks(updatedTasks);
+              setFilteredTasks(updatedFilteredTasks)
+              // setFilteredTasks(tasks)
             } catch (error) {
-              console.error('Error deleting task:', error.message);
+              console.error('Error changing task state:', error.message);
               // Handle the error, e.g., display an error message to the user
             }
           };
           _startTask();
     }
     const handleEditTask = (id) => {
+      if(taskTitle == "" || taskDescription == "") {
+        alert('Task title and description should not be empty!')
+        return;
+      }
       const _editTask = async() => {
         try{
           const res = await editTask(id,taskTitle, taskDescription);
@@ -219,6 +238,17 @@ export default function Home(){
               setDescription('');
               setTime(1);
 
+              // console.log(res)
+
+              const updatedTasks = [...tasks,res];
+              setTasks(updatedTasks); 
+
+
+              if(taskStatus == 'All' || taskStatus == 'To Do'){
+              const updatedFilteredTasks = [...filteredtasks,res];
+              setFilteredTasks(updatedFilteredTasks)
+              }
+
               // Optionally, you can reload the page to see the updated tasks
               // window.location.reload();
             } catch (error) {
@@ -241,18 +271,33 @@ export default function Home(){
       });
 
       function handleAddStep(id) {
-        console.log("hhh")
         if (stepTitle.length > 0 && stepDescription.length > 0) {
-          console.log("ggg")
 
           const addStep = async () => {
             try {
               const res = await createStep(stepTitle, stepDescription, id);
-              console.log(res)
+              // console.log(res)
               // Clear the input fields or update the UI as needed
               setStepTitle('');
               setStepDescription('');
               // Optionally, you can reload the page to see the updated tasks
+
+              // console.log("res:")
+              // console.log(res)
+              const updatedTasks = tasks.map((task) =>(
+                task.id == id ? res.task : task
+              )
+              );
+              const updatedFilteredTasks = filteredtasks.map((task) =>(
+                task.id == id ?  res.task : task
+              )
+              );
+
+              // Update the tasks state
+              setTasks(updatedTasks);
+              setFilteredTasks(updatedFilteredTasks)
+              // console.log("filtered tasks: ");
+              // console.log(filteredtasks)
               // window.location.reload();
             } catch (error) {
               console.error('Error creating task:', error.message);
@@ -275,6 +320,34 @@ export default function Home(){
 
        
       }, []);
+      
+      
+      useEffect(() => {
+        
+        
+      }, [filteredtasks]);
+  
+
+      const generatePDF = async (id) => {
+
+     const task = await handleGetTaskById(id)
+        console.log(task)
+        const doc = new jsPDF();
+    
+        doc.text('Task List', 10, 10);
+        
+        let yPosition = 20;
+
+          doc.text(`ID: ${task.id}`, 10, yPosition);
+          doc.text(`Title: ${task.title}`, 10, yPosition + 10);
+          doc.text(`Description: ${task.description}`, 10, yPosition + 20);
+          doc.text(`step: ${task.steps}`, 10, yPosition + 30)
+          yPosition += 40; // Adjusting the position for the next task
+
+    
+        doc.save('tasks.pdf');
+      };
+    
 
       // useEffect(() => {
       //   setFilteredTasks(tasks);
@@ -303,13 +376,38 @@ export default function Home(){
       //   } 
       // }
     function handleChangeStepStatus(task_id, task_step_id, taskStepState){
-      console.log(task_id + " "+ task_step_id + " " + taskStepState)
+      var res1 = "";
+
+        if(taskStepState == "To Do"){
+          res1 = "Started"
+        }
+        else if(taskStepState == "Started"){
+          res1 = "Finished"
+        } 
+        else {
+          // console.log("No change")
+          return;
+        }
       const _startTaskStep = async () => {
         try {
           const res = await startTaskStep(task_id,task_step_id,taskStepState);
           // Clear the input fields or update the UI as needed
           // Optionally, you can reload the page to see the updated tasks
-          window.location.reload();
+          // Clear the input fields or update the UI as needed
+          // Optionally, you can reload the page to see the updated tasks
+          // Update the local state with the new status
+          const updatedTasks = tasks.map((task) =>(
+            task.id == task_id ? res.task : task
+          )
+          );
+          const updatedFilteredTasks = filteredtasks.map((task) =>(
+            task.id == task_id ?  res.task : task
+          )
+          );
+
+          // Update the tasks state
+          setTasks(updatedTasks);
+          setFilteredTasks(updatedFilteredTasks)
         } catch (error) {
           console.error('Error updating task step:', error.message);
           // Handle the error, e.g., display an error message to the user
@@ -399,7 +497,7 @@ export default function Home(){
 
             </div>
             <div>
-
+            {tasks == null || tasks == [] || tasks == undefined ? <></> :
             <ToggleButtonGroup 
                     className="buttons"
                     value={taskStatus}
@@ -418,10 +516,7 @@ export default function Home(){
                     <ToggleButton value="Done">
                         <span>Done ({tasks == null || tasks == [] ? (0) : tasks.filter(task => task.status.includes('Done')).length})</span>
                     </ToggleButton>
-
                 </ToggleButtonGroup>
-                {
-                  console.log(user)
                 }
                 <div className="tasks">
                     {filteredtasks != null ? 
@@ -491,10 +586,10 @@ export default function Home(){
                                 </li>
                               ))}
                             </ul>
-                            
+                            {/* handleGetTaskById(task.id) */}
                           </div>
                           <div className="task-section2">
-                          <img onClick={() => handleGetTaskById(task.id)} src={archive} className="icon"/>  
+                          <img onClick={() =>generatePDF(task.id)} src={archive} className="icon"/>  
 
                           <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="icon"/>         
                               {task.status != "Done" ?
