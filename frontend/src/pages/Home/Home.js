@@ -333,12 +333,14 @@ export default function Home(){
 
       const generatePDF = async (id) => {
 
+        /* HERE WE SHOULD GET THE PROJECT COLOR AND PROJECT BACKGROUND COLOR*/
+
      const res = await handleGetTaskById(id)
       const task = res.task
         const doc = new jsPDF();
           
-        let yPosition = 20;
-        const maxWidth = 180; 
+        let yPosition = 0;
+        const maxWidth = 190; 
 
         // Add the logo
 
@@ -347,18 +349,85 @@ export default function Home(){
         logoData.src = 'data:../../icons/logo-transparent:image/png;base64,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';
 
 
-        const logoX = 170; // X position of the logo
-        const logoY = 3; // Y position of the logo
+        const logoX = 175; // X position of the logo
+        const logoY = 0; // Y position of the logo
         const logoWidth = 30; // Width of the logo
         const logoHeight = 30; // Height of the logo
+        //Report Header:
+        doc.setFillColor(27, 94, 5);
+        doc.rect(0, yPosition, 300, 30, 'F');
+        
+        doc.setFillColor(255,255,255);
+        doc.rect(logoX-4, logoY, 45, 30, 'F');
+
+        doc.setFontSize(28);
+        doc.setFont('helvetica' ,'bold')
+
+        doc.setTextColor(255,255,255);
+
+        doc.text(`<Project Name>`, 10, yPosition+18)
+        
+        doc.setTextColor(0,0,0);
+        doc.setFontSize(14);
+
+
         doc.addImage(logoData, 'png', logoX, logoY, logoWidth, logoHeight);
 
 
+
+        
+        //Report Content...
+        yPosition+=40;
         // console.log(task.task.id)
         doc.setFontSize(14);
         doc.setFont('helvetica' ,'bold')
-        doc.text(`Task ID: ${task.id}`, 10, yPosition);
-        doc.text(`${task.title}`, 10, yPosition + 10);
+        doc.text(`Task ID: ${task.id}`, 10, yPosition);yPosition+=10;
+        doc.text(`Task Title: ${task.title}`, 10, yPosition);yPosition+=10;
+        if(task.implementation_duration_hours != null){
+          doc.setFont('helvetica' ,'bold')
+          doc.text(`Estimated Time:`, 10, yPosition);
+          doc.setFont('helvetica' ,'normal')
+          doc.text(task.implementation_duration_hours+" Hours", 50, yPosition);
+          yPosition+=10;
+        }
+        if(task.begin_time != null){
+          doc.setFont('helvetica' ,'bold')
+          doc.text(`Start Date:`, 10, yPosition);
+          doc.setFont('helvetica' ,'normal')
+          doc.text(dateTimeFormatter.format((Date.parse(task.begin_time))), 40, yPosition);
+          yPosition+=10;
+        }
+        if(task.end_time != null){
+          doc.setFont('helvetica' ,'bold')
+          doc.text(`End Date:`, 10, yPosition);
+          doc.setFont('helvetica' ,'normal')
+          doc.text(dateTimeFormatter.format((Date.parse(task.end_time))), 40, yPosition);
+          yPosition+=10;
+        }
+        doc.setFont('helvetica' ,'bold')
+        doc.text(`Task status:`, 10, yPosition);
+        doc.setFont('helvetica' ,'normal')
+
+        if(task.status=="To Do"){
+          doc.setTextColor(255,255,255);
+          doc.setFillColor(27, 94, 5);}
+        else if(task.status=="In Progress")
+          doc.setFillColor(206, 172, 19);
+        else if(task.status=="Cancelled"){
+          doc.setTextColor(255,255,255);
+          doc.setFillColor(194, 17, 17);}
+        else if(task.status=="Done"){
+          doc.setTextColor(255,255,255);
+          doc.setFillColor(17,0,255);}
+
+        const textWidth = doc.getStringUnitWidth(task.status) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+
+        doc.rect(40, yPosition - 5, textWidth+2, 7, 'F')
+        doc.text(`${task.status}`, 41, yPosition);
+        doc.setTextColor(0,0,0);
+        doc.setFont('helvetica', 'normal')
+
+        yPosition+=10;
         const lines_description = doc.splitTextToSize(task.body, maxWidth);
 
         // doc.text(`Description: ${task.body}`, 10, yPosition + 20);
@@ -366,25 +435,57 @@ export default function Home(){
 
         lines_description.forEach((line) => {
           doc.setFont('helvetica', 'normal')
-          doc.text(line, 10, yPosition+ 20);
+          doc.text(line, 10, yPosition);
           yPosition += 10;
         });
 
+        yPosition += 10;
+
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold')
+        doc.text(`Team Members:`, 10, yPosition)
+        doc.setFontSize(10);
+        yPosition+=10;
+        doc.text(`${task.owner.first_name+" "+task.owner.last_name}`, 10, yPosition)
+
+        doc.setFont('helvetica', 'normal')
+        yPosition+=10;
+
+        task.viewers.map((viewer, index)=>{
+          if(viewer.is_staff == false){
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal')
+            doc.text(`${viewer.first_name+" "+viewer.last_name}`, 10, yPosition);
+            yPosition+=10;
+          }
+          
+        });
+        yPosition+=10;
         task.steps.map((step, index)=>{
           doc.setFontSize(11);
           doc.setFont('helvetica', 'bold')
+          const stepWidth = doc.getStringUnitWidth(step.title) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+          doc.text(`- ${step.title}`, 10, yPosition)
+          if(step.status == "To Do")
+            doc.setTextColor(27, 94, 5)
+          else if(step.status=="Started")
+            doc.setTextColor(206, 172, 19);
+          else if(step.status=="Done")
+            doc.setTextColor(17,0,255);
 
+          doc.text(`(${step.status})`, 14 + stepWidth, yPosition)
+          doc.setTextColor(0,0,0)
+          const lines = doc.splitTextToSize(step.body, maxWidth);
+          // doc.text(`step Description: ${lines}`, 10, yPosition + 40)
+          lines.forEach((line) => {
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal')
+            yPosition+=10;
+            doc.text(line, 12, yPosition);
+          });
 
-        doc.text(`${step.title}`, 10, yPosition + 30)
-        const lines = doc.splitTextToSize(step.body, maxWidth);
-        // doc.text(`step Description: ${lines}`, 10, yPosition + 40)
-
-        lines.forEach((line) => {
-          doc.setFontSize(10);
-          doc.setFont('helvetica', 'normal')
-          doc.text(line, 10, yPosition+ 40);
-          yPosition += 10;
-        });
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold')       
 
         yPosition += 10; // Adjusting the position for the next task
       })
@@ -581,7 +682,7 @@ export default function Home(){
                           
                           <span  className=" task-title">
                             {task.title}
-                            {task.owner.id != user.user_id ? <img src={TaskStar} className="star" alt="star"/> : <></>}
+                            {user.is_staff == false && task.owner.id != user.user_id ? <img src={TaskStar} className="star" alt="star"/> : <></>}
                             <span className="task-hours">{task.implementation_duration_hours+"  Hours"}</span>
                           </span>
                           
@@ -601,6 +702,7 @@ export default function Home(){
                               viewer.is_staff === false && (
                                 <span style={{marginRight: "2px"}} key={index}>
                                   {viewer.first_name} {viewer.last_name}
+                                  {index == task.viewers.length - 1 ? "" : "-"}
                                 </span>
                               )
                             ))}
