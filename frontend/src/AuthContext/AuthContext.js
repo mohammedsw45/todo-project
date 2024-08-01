@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
       });
        if (response && response.status === 200) 
         {
-          return { success: true };
+          return response.data;
         }
         } catch (error) {
           console.error('Task Start failed', error);
@@ -101,7 +101,7 @@ const AuthProvider = ({ children }) => {
           });
            if (response && response.status === 200) 
             {
-              return { success: true };
+              return response.data;
             }
             } catch (error) {
               console.error('Task Start failed', error);
