@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const startTask = async (id,status) => {
+  const updateTask = async (id,status) => {
     try{
       var res = "";
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
@@ -39,6 +39,9 @@ const AuthProvider = ({ children }) => {
       }
       else if(status == "In Progress"){
         res = "Done"
+      }
+      else if(status == "Cancelled"){
+        res = "Cancelled"
       } 
       const response = await axios.patch(`${destination}/todo/tasks/${id}/update/`,
         {
@@ -133,7 +136,24 @@ const AuthProvider = ({ children }) => {
   const getAllTasks = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get(`${destination}/todo/tasks`, {
+      var url = `${destination}/todo/tasks`;
+      if(user.is_staff)
+        url = `${destination}/todo/admin/tasks`;
+      const response = await axios.get(url, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
+        }
+      });
+      return response.data.tasks;
+    }catch (error){
+      console.error(error.message)
+    }
+  }
+
+  const getAllAdminTasks = async () => {
+    try {
+      const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
+      const response = await axios.get(`${destination}/todo/admin/tasks`, {
         headers: {
           'Authorization': `Bearer ${accessToken}` // Assuming you store the token in localStorage
         }
@@ -261,7 +281,7 @@ const AuthProvider = ({ children }) => {
   // useEffect for token refresh...
 
   return (
-    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks, createTask, deleteTask, startTask , createStep, editTask, startTaskStep , getTaskById}}>
+    <AuthContext.Provider value={{ authTokens, user, login, register, logout, getAllTasks,getAllAdminTasks, createTask, deleteTask, updateTask , createStep, editTask, startTaskStep , getTaskById}}>
       {children}
     </AuthContext.Provider>
   );

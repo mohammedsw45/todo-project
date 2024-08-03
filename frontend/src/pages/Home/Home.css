@@ -76,7 +76,7 @@
     color: #000;
 }
 .tasks{
-    width: 650px;
+    width: calc(100vw - 300px);
     height: 600px;
     /* margin-top: 10px; */
     /* background-color: rgb(216, 216, 216); */
@@ -121,15 +121,15 @@
     border-top-left-radius: 5px;
 }
 .todo{
-    background-color: #1b5e05;
+    background-color: #1100ff;
+    color: #ffffff;
 }
 .inProgress{
     background-color: #ceac13;
     color: #000;
 }
 .Done{
-    background-color: #1100ff;
-    color: #ffffff;
+    background-color: #1b5e05;
 }
 .Cancelled{
     background-color: #c21111;
@@ -312,6 +312,14 @@
     background: #C7C7C7; 
   }
 
+  
+/* @media(min-width: 701px){
+
+    .tasks{
+        width: 100%;
+    }
+} */
+  
 @media(max-width: 700px){
     .task-controller{
         grid-template-columns: 1fr;

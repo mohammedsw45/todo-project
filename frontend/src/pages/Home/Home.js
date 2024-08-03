@@ -14,6 +14,7 @@ import addIcon from '../../icons/add.png'
 import finishIcon from '../../icons/finish.png'
 import startStepIcon from '../../icons/play_step.png'
 import archive from '../../icons/archive.png'
+import cancelIcon from '../../icons/cancel.png'
 // import processingStepIcon from '../../icons/hourglass.png'
 import endedStepIcon from '../../icons/accept.png'
 import TaskStar from '../../icons/star.png'
@@ -76,7 +77,7 @@ export default function Home(){
     const { createTask } = useContext(AuthContext);
     const { getAllTasks } = useContext(AuthContext);
     const { deleteTask } = useContext(AuthContext);
-    const { startTask } = useContext(AuthContext);
+    const { updateTask } = useContext(AuthContext);
     const { createStep } = useContext(AuthContext);
     const { editTask } = useContext(AuthContext);
     const { startTaskStep } = useContext(AuthContext);
@@ -178,13 +179,16 @@ export default function Home(){
         else if(taskState == "In Progress"){
           res1 = "Done"
         } 
+        else if(taskState == "Cancelled"){
+          res1 = "Cancelled"
+        } 
         else {
           console.log("No change")
           return;
         }
         const _startTask = async () => {
             try {
-              const res = await startTask(id,taskState); 
+              const res = await updateTask(id,taskState); 
               // Clear the input fields or update the UI as needed
               // Optionally, you can reload the page to see the updated tasks
               // Update the local state with the new status
@@ -355,10 +359,14 @@ export default function Home(){
         const logoHeight = 30; // Height of the logo
         //Report Header:
         doc.setFillColor(27, 94, 5);
-        doc.rect(0, yPosition, 300, 30, 'F');
+        doc.rect(0, yPosition, 300, 31, 'F');
         
+        // const radius = 40; // Set the border-radius value
+        // doc.setFillColor(226, 232, 240);
         doc.setFillColor(255,255,255);
-        doc.rect(logoX-4, logoY, 45, 30, 'F');
+        doc.rect(logoX-4, logoY, 45, 32, 'F');
+        // doc.roundedRect(logoX-1, logoY, 32, 30, radius, radius, 'F');
+
 
         doc.setFontSize(28);
         doc.setFont('helvetica' ,'bold')
@@ -371,13 +379,13 @@ export default function Home(){
         doc.setFontSize(14);
 
 
-        doc.addImage(logoData, 'png', logoX, logoY, logoWidth, logoHeight);
+        doc.addImage(logoData, 'png', logoX, logoY+0.5, logoWidth, logoHeight);
 
 
 
         
         //Report Content...
-        yPosition+=40;
+        yPosition+=42;
         // console.log(task.task.id)
         doc.setFontSize(14);
         doc.setFont('helvetica' ,'bold')
@@ -698,14 +706,16 @@ export default function Home(){
                                 {task.owner.first_name} {task.owner.last_name}
                           </h4>
                           <p>
-                            {task.viewers.map((viewer, index) => (
-                              viewer.is_staff === false && (
-                                <span style={{marginRight: "2px"}} key={index}>
-                                  {viewer.first_name} {viewer.last_name}
-                                  {index == task.viewers.length - 1 ? "" : "-"}
-                                </span>
+                            {task.viewers.filter(v => !v.is_staff).map((viewer, index) => (
+
+                                (viewer.is_staff === false) ?
+                                  <span style={{marginRight: "2px"}} key={index}>
+                                    {viewer.first_name} {viewer.last_name}
+                                    {index !== task.viewers.filter(v => !v.is_staff).length - 1 && <span> -</span>}                                  </span>
+                                :<></>
+
                               )
-                            ))}
+                            )}
                           </p>
                          
                           {
@@ -757,7 +767,7 @@ export default function Home(){
                           <img onClick={() =>generatePDF(task.id)} src={archive} className="icon"/>  
 
                           <img onClick={() => handleDeleteTask(task.id)} src={deleteIcon} className="icon"/>         
-                              {task.status != "Done" ?
+                              {task.status == "To Do" || task.status == "In Progress" ?
                               <Popup position="right center" trigger= {<img src={addIcon} className="icon"/>} modal nested> 
                                 <div className="popup">
                                   <div className="popup-content">
@@ -783,7 +793,7 @@ export default function Home(){
                               </Popup>
                               :<></>}
 
-                              {task.status != "Done" ?
+                              {task.status == "To Do" || task.status == "In Progress" ?
                               <Popup position="right center" 
                               trigger= {<img src={editIcon} className="icon"/>}
                               onOpen={()=>{setTaskTitle(task.title);setTaskDescription(task.body)}}
@@ -814,9 +824,15 @@ export default function Home(){
                               : <></>}
               
                               
-                              {task.status === "To Do" ? 
+                                {task.status == "To Do" || task.status == "In Progress" ? 
                                  <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={startIcon} className="icon"/>:
                                  task.status === "In Progress" ? <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={finishIcon} className="icon"/>  : <></>       
+                                                          }
+                              {/* <img src={addIcon} className="add-icon"/>          */}
+                              
+                              {task.status == "To Do" || task.status == "In Progress" ?
+                                 <img onClick={() => handleChangeTaskStatus(task.id,'Cancelled')} src={cancelIcon} className="icon"/>
+                                 : <></>       
                                                           }
                               {/* <img src={addIcon} className="add-icon"/>          */}
                           </div>

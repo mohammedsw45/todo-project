@@ -10,6 +10,9 @@ const Dashborad = (props) => {
           <h1>Admin Dashboard</h1>
         </div>
         <div className='links'>
+        <div className='TasksLink'>
+            <Link to="/dashboard/main">Main</Link>
+          </div>
           <div className='TasksLink'>
             <Link to="/dashboard/tasks">Tasks</Link>
           </div>

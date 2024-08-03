@@ -2,7 +2,7 @@
     /* background-color: #cee218; */
     display: flex;
     box-sizing: border-box;
-    color: #fff;
+    /* color: #fff; */
 }
 .Dashboard .SideBar{
     background-color: #05697f;
@@ -16,6 +16,7 @@
     font-size: 18px;
     text-wrap: nowrap;
     padding: 0 10px;
+    color: #fff;
 }
 
 .Dashboard .SideBar .links{
