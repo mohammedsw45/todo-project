@@ -16,6 +16,9 @@ const Dashborad = (props) => {
           <div className='TasksLink'>
             <Link to="/dashboard/tasks">Tasks</Link>
           </div>
+          <div className='In Progress'>
+            <Link to="/dashboard/progress">In Progress</Link>
+          </div>
           {/* <div className='TasksLink'>
             <Link to="/dashboard/tasks" style={{color: "white", backgroundColor: "#0569ff"}}>Ongoing Tasks</Link>
           </div>

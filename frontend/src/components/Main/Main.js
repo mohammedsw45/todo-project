@@ -16,7 +16,7 @@ import Reset from './../../pages/reset-password/Reset';
 import TaskDetails from '../../Dashborad/Components/Detailstasks/TaskDetails';
 import EditProfile from '../../Dashborad/Components/EditProfile/EditProfile';
 import AdminMain from '../../Dashborad/Components/AdminMain/AdminMain'
-
+import InProgressTasks from '../../Dashborad/Components/InProgressTasks/InProgressTasks';
 function Main(props) {
   const { user } = useContext(AuthContext);
   return (
@@ -28,6 +28,7 @@ function Main(props) {
             <Route path="/dashboard/" element={<Dashborad />}>
               <Route index element={<AdminMain />} />
               <Route path="tasks" element={<Tasks />} />
+              <Route path="progress" element={<InProgressTasks />} />
               <Route path="users" element={<Users />} />
               <Route path="main" element={<AdminMain />} />
               <Route path="create-new-task" element={<NewTask />} />

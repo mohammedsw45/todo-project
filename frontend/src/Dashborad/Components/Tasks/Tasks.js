@@ -76,7 +76,7 @@ const Tasks = () => {
             {filteredtasks.length > 0 ? 
               filteredtasks.map(task => (
                 <tr key={task.id}>
-                  <td>{task.owner.id}</td>
+                  <td>{task.owner.first_name} {task.owner.last_name}</td>
                   <td>{task.id}</td>
                   <td>{task.title}</td>
                   <td>{dateTimeFormatter.format((Date.parse(task.created_at)))}</td>

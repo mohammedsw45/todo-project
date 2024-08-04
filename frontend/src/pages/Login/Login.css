@@ -41,6 +41,7 @@
     text-align: center;
 }
 .login-btn{
+    cursor: pointer;
     margin-top: .5em;
     padding: 1em;
     width: 150px;
