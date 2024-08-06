@@ -859,16 +859,16 @@ export default function Home(){
                               </Popup>
                               : <></>}
               
-                              
+                              {task.id == 59 ? console.log("GGGGGGGGGG", task.status): console.log()}
                                 {task.status == "To Do" ? 
                                  <Tooltip title="Start Task">
                                   <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={startIcon} className="icon"/>
-                                 </Tooltip>:
-                                 task.status == "In Progress" ?
+                                 </Tooltip>
+                                 : task.status == "In Progress" ?
                                  <Tooltip title="Finish Task">
                                   <img onClick={() => handleChangeTaskStatus(task.id,task.status)} src={finishIcon} className="icon"/>
-                                 </Tooltip>:
-                                 <></>                      }
+                                 </Tooltip>
+                                 :<></>                      }
                               {/* <img src={addIcon} className="add-icon"/>          */}
                               
                               {task.status == "To Do" || task.status == "In Progress" ?

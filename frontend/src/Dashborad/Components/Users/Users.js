@@ -24,12 +24,13 @@ const Users = () => {
   const getAllUsers = async () => {
     try {
       const accessToken = JSON.parse(localStorage.getItem('authTokens')).access;
-      const response = await axios.get(`${destination}/account/profiles`, {
+      const response = await axios.get(`${destination}/account/profiles/`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
       });
-      return response.data;
+      console.log(response.data.profiles)
+      return response.data.profiles;
     } catch (error) {
       console.error('Error fetching users:', error.message);
       return [];
