@@ -1,0 +1,212 @@
+.Header {
+    width: 100%;
+}
+
+.Header h1 {
+    margin: 5px auto;
+    color: #074407; 
+}
+.form-grid{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-row-gap: 2em;
+}
+.form-grid label, .form-grid h1{
+    color: black;
+}
+.form-grid input[type="text"],.form-grid textarea {
+    padding: 10px 0;
+    color: black;
+    border-radius: 3px;
+    border: 1px solid gray;
+    text-indent: 5px;
+}
+.executers{
+    color: black;
+    margin-bottom: .5em;
+}
+.executers-grid{
+    color: black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+.executers-grid input{
+    margin-right: 5px;
+    
+}
+div.create-task {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+}
+
+div.create-task form.form {
+    width: 90%;
+    height: auto; 
+    margin-top: 10px;
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    overflow-y: scroll;
+    position: relative;
+}
+
+div.create-task form.form div {
+    width: 100%;
+    margin-bottom: 1em; 
+}
+
+div.create-task form.form div.title {
+    text-align: left; 
+    display: flex;
+    color: #0c0b0b;
+}
+
+div.create-task form.form div.title label {
+    font-size: 1.8rem; 
+    width: 25%;
+}
+
+div.create-task form.form div.title #title {
+    width: calc(100% - 1em);
+    color: #0c0b0b; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 8px; 
+    font-size: 1rem; 
+}
+
+div.create-task form.form div.title #title::placeholder {
+    color: #a0a0a0; 
+    font-size: 1rem; 
+    opacity: 1; 
+}
+
+div.create-task form.form div.description {
+    text-align: left; 
+    display: flex;
+    color: #0c0b0b;
+}
+
+div.create-task form.form div.description label {
+    font-size: 1.8rem; 
+    width: 25%;
+}
+
+div.create-task form.form div.description #description {
+    width: calc(100% - 1em);
+    height: 100px;
+    color: #0c0b0b; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 8px; 
+    font-size: 1rem; 
+}
+
+div.create-task form.form div.description #description::placeholder {
+    color: #a0a0a0; 
+    font-size: 1rem; 
+    opacity: 1; 
+}
+
+div.create-task form.form div.time {
+    width: 100px;
+    height: 100px;
+    animation: count 2s infinite; 
+    text-align: left; 
+    display: flex;
+    color: #0c0e10;    
+}
+
+div.create-task form.form div.time label {
+    font-size: 1.8rem; 
+    width: 25%;
+}
+
+#time {
+    width: 5em;
+    color: #0c0b0b; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 8px;  
+}
+
+div.create-task form.form div.time #time::placeholder {
+    color: #a0a0a0; 
+    font-size: 1rem; 
+    opacity: 1; 
+}
+
+
+/* Container for the viewers */
+div.create-task form.form div.viewers {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 24%);/*repeat(auto-fill, minmax(150px, 1fr));  Adjust the minmax value based on your design */
+    gap: 1em; /* Space between grid items */
+    padding: 1em; /* Add padding around the grid */
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+
+}
+div.create-task form.form div.viewers div{
+    border: 1px solid #398FE4;
+    border-radius: 5px;
+    padding: 5px;
+}
+div.create-task form.form div.viewers label {
+    display: inline; /* Ensure labels are block elements */
+    margin-left: 0.5em; /* Space between checkbox and label */
+    font-size: 1.2rem;
+    color: #0c0e10;
+}
+
+/* Adjust input styling if needed */
+div.create-task form.form div.viewers input[type="checkbox"] {
+    margin-right: 0.5em; /* Space between checkbox and label */
+}
+
+
+div.create-task form.form div.add-button{
+    margin-top: 25px;
+}
+
+div.create-task form.form div.create-button .submit {
+    margin: auto;
+     display: block;
+     padding: .5em;
+     background-color: #05697f;
+     border: 1px solid #05697f;
+     color: white;
+     font-size: 1.2rem;
+     width: 100%;
+     border-radius: 15px;
+     outline: none;
+}
+ 
+
+
+
+.btn
+{
+    width: 20%;
+    height: 40px;
+    position:sticky;
+    left:380px;
+    font-size: 1.5rem;
+    color: #021c36;
+    border-radius: 4px;
+    top: 561px;
+    border:none;
+    background-color:#04D3FF;
+
+   
+}
+
+@media(max-width: 900px){
+    .form-grid, .executers-grid{
+        grid-template-columns: 1fr;
+    }
+}

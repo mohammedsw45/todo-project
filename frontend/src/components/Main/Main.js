@@ -17,6 +17,8 @@ import TaskDetails from '../../Dashborad/Components/Detailstasks/TaskDetails';
 import EditProfile from '../../Dashborad/Components/EditProfile/EditProfile';
 import AdminMain from '../../Dashborad/Components/AdminMain/AdminMain'
 import InProgressTasks from '../../Dashborad/Components/InProgressTasks/InProgressTasks';
+import NewProject from '../../Dashborad/Components/NewProject/NewProject';
+import Projects from '../../Dashborad/Components/Projects/Projects';
 function Main(props) {
   const { user } = useContext(AuthContext);
   return (
@@ -28,10 +30,12 @@ function Main(props) {
             <Route path="/dashboard/" element={<Dashborad />}>
               <Route index element={<AdminMain />} />
               <Route path="tasks" element={<Tasks />} />
+              <Route path="projects" element={<Projects />} />
               <Route path="progress" element={<InProgressTasks />} />
               <Route path="users" element={<Users />} />
               <Route path="main" element={<AdminMain />} />
               <Route path="create-new-task" element={<NewTask />} />
+              <Route path="create-new-project" element={<NewProject />} />
               <Route path="create-new-user" element={<NewUser />} />
               <Route path="task/details/:id" element={<TaskDetails />} />
               <Route path="edit-profile/:id" element={<EditProfile />} />
